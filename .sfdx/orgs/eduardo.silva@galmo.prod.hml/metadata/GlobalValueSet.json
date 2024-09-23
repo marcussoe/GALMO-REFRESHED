@@ -1,0 +1,96 @@
+{
+  "status": 0,
+  "result": [
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "2024-09-05T03:19:30.000Z",
+      "fileName": "globalValueSets/Cargo.globalValueSet",
+      "fullName": "Cargo",
+      "id": "0NtHa0000002B11KAE",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "2024-09-05T03:19:30.000Z",
+      "manageableState": "unmanaged",
+      "type": "GlobalValueSet"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "2024-09-05T03:19:30.000Z",
+      "fileName": "globalValueSets/CanaisAtendimento.globalValueSet",
+      "fullName": "CanaisAtendimento",
+      "id": "0NtHa0000002B10KAE",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "2024-09-05T03:19:30.000Z",
+      "manageableState": "unmanaged",
+      "type": "GlobalValueSet"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "2024-09-05T03:19:30.000Z",
+      "fileName": "globalValueSets/SituacoesParticipantes.globalValueSet",
+      "fullName": "SituacoesParticipantes",
+      "id": "0NtHa0000002B14KAE",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "2024-09-05T03:19:30.000Z",
+      "manageableState": "unmanaged",
+      "type": "GlobalValueSet"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "2024-09-05T03:19:30.000Z",
+      "fileName": "globalValueSets/AgenteFinanceiro.globalValueSet",
+      "fullName": "AgenteFinanceiro",
+      "id": "0NtHa0000002B0zKAE",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "2024-09-05T03:19:30.000Z",
+      "manageableState": "unmanaged",
+      "type": "GlobalValueSet"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "2024-09-05T03:19:30.000Z",
+      "fileName": "globalValueSets/DiasSemana.globalValueSet",
+      "fullName": "DiasSemana",
+      "id": "0NtHa0000002B12KAE",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "2024-09-05T03:19:30.000Z",
+      "manageableState": "unmanaged",
+      "type": "GlobalValueSet"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "2024-09-05T03:19:30.000Z",
+      "fileName": "globalValueSets/OpcoesContato.globalValueSet",
+      "fullName": "OpcoesContato",
+      "id": "0NtHa0000002B13KAE",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "2024-09-05T03:19:30.000Z",
+      "manageableState": "unmanaged",
+      "type": "GlobalValueSet"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "2024-09-05T03:19:30.000Z",
+      "fileName": "globalValueSets/SituacoesUnidades.globalValueSet",
+      "fullName": "SituacoesUnidades",
+      "id": "0NtHa0000002B15KAE",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "2024-09-05T03:19:30.000Z",
+      "manageableState": "unmanaged",
+      "type": "GlobalValueSet"
+    }
+  ]
+}

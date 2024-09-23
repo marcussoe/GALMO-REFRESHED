@@ -1,0 +1,17 @@
+{
+  "status": 0,
+  "result": [
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "2024-09-05T12:04:46.000Z",
+      "fileName": "LeadConvertSettings/LeadConvertSettings.LeadConvertSetting",
+      "fullName": "LeadConvertSettings",
+      "id": "0EqHa0000001VGHKA2",
+      "lastModifiedById": "005Ha000002jmSlIAI",
+      "lastModifiedByName": "Pedro Castaldelli",
+      "lastModifiedDate": "2024-09-06T13:32:16.000Z",
+      "type": "LeadConvertSettings"
+    }
+  ]
+}

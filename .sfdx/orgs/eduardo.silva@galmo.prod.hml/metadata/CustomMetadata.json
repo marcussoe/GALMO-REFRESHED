@@ -1,0 +1,109 @@
+{
+  "status": 0,
+  "result": [
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "customMetadata/IntegracaoWhatsapp.POCWhatsapp.md",
+      "fullName": "IntegracaoWhatsapp.POCWhatsapp",
+      "id": "m03Ha00000CiRP0IAN",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "1970-01-01T00:00:00.000Z",
+      "manageableState": "unmanaged",
+      "type": "CustomMetadata"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "customMetadata/ConfiguracaoCanalAtendimento.Telefone.md",
+      "fullName": "ConfiguracaoCanalAtendimento.Telefone",
+      "id": "m01Ha00000Fy9KoIAJ",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "1970-01-01T00:00:00.000Z",
+      "manageableState": "unmanaged",
+      "type": "CustomMetadata"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "customMetadata/ConfiguracaoCanalAtendimento.Loja.md",
+      "fullName": "ConfiguracaoCanalAtendimento.Loja",
+      "id": "m01Ha00000Fy9KmIAJ",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "1970-01-01T00:00:00.000Z",
+      "manageableState": "unmanaged",
+      "type": "CustomMetadata"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "customMetadata/ConfiguracaoCanalAtendimento.FaleConosco.md",
+      "fullName": "ConfiguracaoCanalAtendimento.FaleConosco",
+      "id": "m01Ha00000Fy9KlIAJ",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "1970-01-01T00:00:00.000Z",
+      "manageableState": "unmanaged",
+      "type": "CustomMetadata"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "customMetadata/ConfiguracaoWhatsApp.ConfiguracaoWhatsApp.md",
+      "fullName": "ConfiguracaoWhatsApp.ConfiguracaoWhatsApp",
+      "id": "m02Ha000002kGv3IAE",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "1970-01-01T00:00:00.000Z",
+      "manageableState": "unmanaged",
+      "type": "CustomMetadata"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "customMetadata/ConfiguracaoCanalAtendimento.Stand.md",
+      "fullName": "ConfiguracaoCanalAtendimento.Stand",
+      "id": "m01Ha00000Fy9KnIAJ",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "1970-01-01T00:00:00.000Z",
+      "manageableState": "unmanaged",
+      "type": "CustomMetadata"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "customMetadata/ConfiguracaoCanalAtendimento.Chat.md",
+      "fullName": "ConfiguracaoCanalAtendimento.Chat",
+      "id": "m01Ha00000Fy9KkIAJ",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "1970-01-01T00:00:00.000Z",
+      "manageableState": "unmanaged",
+      "type": "CustomMetadata"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "customMetadata/ConfiguracaoCanalAtendimento.WhatsApp.md",
+      "fullName": "ConfiguracaoCanalAtendimento.WhatsApp",
+      "id": "m01Ha00000Fy9KpIAJ",
+      "lastModifiedById": "005Hu00000QVqhvIAD",
+      "lastModifiedByName": "Eduardo Silva",
+      "lastModifiedDate": "1970-01-01T00:00:00.000Z",
+      "manageableState": "unmanaged",
+      "type": "CustomMetadata"
+    }
+  ]
+}
