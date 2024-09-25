@@ -1,0 +1,65 @@
+{
+  "status": 0,
+  "result": [
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "roles/Diretoria.role",
+      "fullName": "Diretoria",
+      "id": "00EHa000001IHY5MAO",
+      "lastModifiedById": "005Ha000002jkVXIAY",
+      "lastModifiedByName": "thiago migliardi",
+      "lastModifiedDate": "2024-09-05T14:49:36.000Z",
+      "type": "Role"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "roles/CorretoresGalmoGerentedeParceiro.role",
+      "fullName": "CorretoresGalmoGerentedeParceiro",
+      "id": "00EHa000001IXL8MAO",
+      "lastModifiedById": "005Ha000002juGJIAY",
+      "lastModifiedByName": "Giulia Carmona",
+      "lastModifiedDate": "2024-09-06T17:15:48.000Z",
+      "type": "Role"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "roles/gcarmContapessoaldeParceiro.role",
+      "fullName": "gcarmContapessoaldeParceiro",
+      "id": "00EHa000001IHcvMAG",
+      "lastModifiedById": "005Ha000002jmSlIAI",
+      "lastModifiedByName": "Pedro Castaldelli",
+      "lastModifiedDate": "2024-09-05T14:52:01.000Z",
+      "type": "Role"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "roles/CorretoresGalmoUsuriodeParceiro.role",
+      "fullName": "CorretoresGalmoUsuriodeParceiro",
+      "id": "00EHa000001IXL9MAO",
+      "lastModifiedById": "005Ha000002juGJIAY",
+      "lastModifiedByName": "Giulia Carmona",
+      "lastModifiedDate": "2024-09-06T17:15:48.000Z",
+      "type": "Role"
+    },
+    {
+      "createdById": "005Hu00000QVqhvIAD",
+      "createdByName": "Eduardo Silva",
+      "createdDate": "1970-01-01T00:00:00.000Z",
+      "fileName": "roles/CorretoresGalmoExecutivodeParceiro.role",
+      "fullName": "CorretoresGalmoExecutivodeParceiro",
+      "id": "00EHa000001IXL7MAO",
+      "lastModifiedById": "005Ha000002juGJIAY",
+      "lastModifiedByName": "Giulia Carmona",
+      "lastModifiedDate": "2024-09-06T17:15:48.000Z",
+      "type": "Role"
+    }
+  ]
+}
