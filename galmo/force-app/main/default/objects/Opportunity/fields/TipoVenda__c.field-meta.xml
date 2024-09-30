@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TipoVenda__c</fullName>
+    <description>Define o tipo da venda</description>
     <label>Tipo De Venda</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
@@ -10,32 +11,20 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Negócio existente</fullName>
-                <default>false</default>
-                <label>Negócio existente</label>
-            </value>
-            <value>
                 <fullName>Negócio novo</fullName>
                 <default>false</default>
                 <label>Negócio novo</label>
             </value>
             <value>
-                <fullName>Financiamento Bancário</fullName>
+                <fullName>Negócio existente</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
-                <label>Financiamento Bancário</label>
+                <label>Negócio existente</label>
             </value>
             <value>
-                <fullName>Financiamento Direto</fullName>
+                <fullName>Financimaento Direto</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
-                <label>Financiamento Direto</label>
-            </value>
-            <value>
-                <fullName>Venda a Vista</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Venda a Vista</label>
+                <label>Financimaento Direto</label>
             </value>
         </valueSetDefinition>
     </valueSet>
