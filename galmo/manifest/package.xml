@@ -101,7 +101,6 @@
 		<members>Empreendimento__c.TipoEmpreendimento__c</members>
 		<members>Empreendimento__c.UF__c</members>
 		<members>Empreendimento__c.ValorM__c</members>
-		<members>Opportunity.Corretor__c</members>
 		<members>Product2.AgenteFinanceiro__c</members>
 		<members>Product2.Andar__c</members>
 		<members>Product2.Bloco__c</members>
@@ -111,7 +110,6 @@
 		<members>Product2.CorReservado__c</members>
 		<members>Product2.CorVendida__c</members>
 		<members>Product2.Empreendimento__c</members>
-		<members>Product2.Enquadramento__c</members>
 		<members>Product2.FracaoIdeal__c</members>
 		<members>Product2.MensagemIntegracao__c</members>
 		<members>Product2.MetragemPrivativaCoberta__c</members>
@@ -123,7 +121,6 @@
 		<members>Product2.NumeroQuartos__c</members>
 		<members>Product2.PrecoLista__c</members>
 		<members>Product2.StatusIntegracao__c</members>
-		<members>Product2.Status__c</members>
 		<members>Product2.ValorBase__c</members>
 		<members>Product2.ValorM2__c</members>
 		<members>SeriePagamentos__c.AposHabiteSe__c</members>
@@ -173,7 +170,6 @@
 		<members>Configura_o_de__mdt</members>
 		<members>DistribuicaoComissao__c</members>
 		<members>Empreendimento__c</members>
-		<members>Product2</members>
 		<members>SeriePagamentos__c</members>
 		<members>TabelaVendas__c</members>
 		<members>UnidadeTabelaVendas__c</members>
