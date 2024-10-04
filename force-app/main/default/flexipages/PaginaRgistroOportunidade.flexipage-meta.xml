@@ -202,6 +202,16 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>documentChecklist</componentName>
+                <identifier>c_documentChecklist</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-75923bcd-15af-4b52-8d3c-10c5990cf908</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
                     <value>detailTabContent</value>
@@ -240,6 +250,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-75923bcd-15af-4b52-8d3c-10c5990cf908</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Checklist</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab5</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
