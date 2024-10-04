@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>StatusAprovacao__c</fullName>
+    <description>Status da aprovação da oportunidade</description>
     <label>Status Da Aprovação</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
