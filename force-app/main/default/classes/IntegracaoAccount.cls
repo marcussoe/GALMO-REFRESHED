@@ -9,7 +9,7 @@ public with sharing class IntegracaoAccount {
         req.setMethod('POST');
         req.setHeader('Content-Type', 'application/json');
 
-        if (isAccountValida(conta)) {
+        if (isAccountValid(conta)) {
             String jsonBody = '{"codigo": "",'
                             + '"nome": "' + conta.Name + '",'
                             + '"cnpj": "' + conta.CNPJ__c + '",'
@@ -17,7 +17,7 @@ public with sharing class IntegracaoAccount {
                             + '"inscricaoEstadualPJ": "' + conta.InscricaoEstadual__pc + '",'
                             + '"email": "' + conta.PersonEmail + '",'
                             + '"telefone": "' + conta.Phone + '",'
-                            + '"tipoLogradouro": "' + conta.TipoLogradouro__c + '",'
+                            // + '"tipoLogradouro": "' + conta.TipoLogradouro__c + '",'
                             + '"endereco": {'
                                 + '"logradouro": "' + conta.Logradouro__pc + '",'
                                 + '"numero": "' + conta.Numero__pc + '",' 
@@ -41,14 +41,13 @@ public with sharing class IntegracaoAccount {
         }             
     }
 
-    public Boolean isAccountValida(Account conta){
-        return conta.Name != null && conta.Name != '' &&
-                conta.CNPJ__c != null && conta.CNPJ__c != '' &&
-                conta.CPF__c != null && conta.CPF__c != '' &&
-                conta.InscricaoEstadual__pc != null && conta.InscricaoEstadual__pc != '' &&
-                conta.PersonEmail != null && conta.PersonEmail != '' &&
+    public Boolean isAccountValid(Account conta){
+        return conta.Name != null &&
+                conta.CPF__c != null && 
+                conta.InscricaoEstadual__pc != null && 
+                conta.PersonEmail != null && 
                 conta.Phone != null && conta.Phone != '' &&
-                conta.TipoLogradouro__c != null && conta.TipoLogradouro__c != '' &&
+                // conta.TipoLogradouro__c != null && conta.TipoLogradouro__c != '' &&
                 conta.Logradouro__pc != null && conta.Logradouro__pc != '' &&
                 conta.Numero__pc != null && conta.Numero__pc != '' &&
                 conta.Bairro__pc != null && conta.Bairro__pc != '' &&
