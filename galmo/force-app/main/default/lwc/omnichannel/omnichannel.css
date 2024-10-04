@@ -1,0 +1,21 @@
+.online-utility-icon {
+    --slds-c-icon-color-background: #2E844A;
+    --slds-c-icon-radius-border: 10rem;
+}
+
+.indisponivel-utility-icon {
+    --sds-c-icon-color-background: #FE9339;
+    --slds-c-icon-radius-border: 20rem;
+}
+
+.offline-utility-icon {
+    --sds-c-icon-color-background: #BA0517;
+    --slds-c-icon-radius-border: 20rem;
+
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

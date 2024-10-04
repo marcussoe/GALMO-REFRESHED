@@ -7,7 +7,7 @@ public class EventTriggerHandlerTest {
     }
 
     private static void doCreateData(){
-        Empreendimento__c empreendimento = new Empreendimento__c(Name = 'Teste empreendimento',CNPJEmpreendimento__c ='07135796000139');
+          Enterprise__c empreendimento = new Enterprise__c(Name = 'Teste empreendimento',CNPJ__c ='07135796000139');
         insert empreendimento;
         
    
@@ -19,7 +19,7 @@ public class EventTriggerHandlerTest {
             CanalAtendimento__c = 'Chat',
             MobilePhone = '11960387699',
             Status = 'Novo',
-            EmpreendimentoInteresse__c = empreendimento.Id
+            EmpreendimentoInteresseLead__c = empreendimento.Id
         );
 
         insert testLead;
@@ -48,7 +48,7 @@ public class EventTriggerHandlerTest {
             Subject = 'Email',
             ActivityDate = Date.today().addDays(5),
             DurationInMinutes = 8,
-            Status_do_Compromisso__c = 'Realizada com Sucesso',
+            StatusCompromisso__c = 'Realizada com Sucesso',
             ActivityDateTime = Datetime.now()
         );
         insert testEvent;

@@ -10,10 +10,11 @@ public with sharing class EventTriggerHandler extends TriggerHandler {
     }
 
     public override void afterInsert() {
-        EventHelper.validateEventStatus(Trigger.new);   
+        EventHelper.validateEventStatus(Trigger.new);
     }
 
     public override void afterUpdate(){
         EventHelper.validateEventStatus(Trigger.new);
     }
+    
 }

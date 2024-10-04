@@ -1,0 +1,103 @@
+<template>
+        <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered" >
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <template for:each={getColunasHeader} for:item="header">
+                        <th key={header.fieldApiName} class="" scope="col">
+                            <div class="slds-truncate" title={header.label}>{header.label}</div>
+                        </th>
+                    </template>
+
+                </tr>
+            </thead>
+
+            
+            <tbody>
+                <template for:each={getSeriesPagamentosObjetos} for:item="seriePagamento" for:index="index">
+                    <tr key={seriePagamento.uid} data-uid={seriePagamento.uid} class="slds-hint-parent" style="height: fit-content;">
+                        <th  data-label="Tipo de Condição" scope="row">
+                            <div  title="Tipo de condição">
+                                 <lightning-combobox
+                                 label="Tipo de condição"
+                                 placeholder="Selecione um tipo de venda"
+                                 onchange={handleChange} 
+                                 data-uid={seriePagamento.uid} 
+                                 data-name="TipoCondicao__c"
+                                 options={tipoCondicoesPickList}
+                                 dropdown-alignment="auto">
+                                 
+                                </lightning-combobox>
+
+                            </div>
+                        </th>
+
+                        <td data-label="Início de pagamento">
+                            <div  title="Início de pagamento">
+                                <lightning-input type="date"  onchange={handleChange} data-uid={seriePagamento.uid} data-name="inicioPagamento__c" label="Início de pagamento" ></lightning-input>
+                            </div>
+                        </td>
+
+                        <td data-label="Dia de vencimentos">
+                            <div  title="Dia de vencimentos">
+                                <lightning-combobox
+                                label="Dia de vencimentos"      
+                                placeholder="Selecione um dia de vencimento"
+                                options={diasVencimentoPickList}
+                                onchange={handleChange} 
+                                data-uid={seriePagamento.uid} 
+                                data-name="diaVencimento__c"
+                                dropdown-alignment="auto">
+                                
+                               </lightning-combobox>
+                                
+                            </div>
+                        </td>
+
+                        <td data-label="Valor da condição">
+                            <div  title="Valor da condição">
+                                <lightning-input type="number" onchange={handleChange} data-uid={seriePagamento.uid} data-name="valorCondicao" label="Valor da condição" ></lightning-input>
+                            </div>
+                        </td>
+
+                        <td data-label="Quantidade">
+                            <div  title="Quantidade">
+                                <lightning-input type="number"  label="Quantidade" onchange={handleChange} data-uid={seriePagamento.uid} data-name="quantidade"></lightning-input>
+                            </div>
+                        </td>
+                        
+
+                        <td data-label="Valor total da condição">
+                            <div  title="Valor total da condição">
+                                <lightning-input type="number" onchange={handleChange} data-uid={seriePagamento.uid} data-name="totalCondicao" label="Valor total da condição" disabled></lightning-input>
+                            </div>
+                        </td>
+                        
+                        <td data-label="% Total">
+                            <div  title="% Total">
+                                <lightning-input type="number" onchange={handleChange} data-uid={seriePagamento.uid} data-name="porcTotal" label="% Total"  disabled></lightning-input>
+                            </div>
+                        </td>
+
+
+                        <td data-label="% Parcela">
+                            <div  title="% Parcela">
+                                <lightning-input type="number" onchange={handleChange} data-uid={seriePagamento.uid} data-name="porcParcela" label="% Parcela"  disabled></lightning-input>
+                            </div>
+                        </td>
+
+                        <td role="gridcell" style="padding-top: 1.95%;">
+                            <lightning-button-menu alternative-text="Ações" icon-name="utility:down" tooltip="Menu de ações"  menu-alignment="auto" >
+                                <lightning-menu-item prefix-icon-name="utility:delete" value="deletar" data-uid={seriePagamento.uid} label="Deletar" onclick={handleDelete}></lightning-menu-item>
+                                <lightning-menu-item prefix-icon-name="utility:discounts" value="descontar" data-uid={seriePagamento.uid} label="Descontar"></lightning-menu-item>
+                                <lightning-menu-item prefix-icon-name="utility:discounts" value="zerar" data-uid={seriePagamento.uid} label="Zerar"></lightning-menu-item>
+                                <lightning-menu-item prefix-icon-name="utility:discounts" value="dividir" data-uid={seriePagamento.uid} label="Dividir"></lightning-menu-item>
+                              
+                            </lightning-button-menu>
+                        </td>
+
+                    </tr>
+
+                </template>
+            </tbody>
+        </table>
+</template>

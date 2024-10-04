@@ -48,7 +48,7 @@ public without sharing class RoletaLeadsSelector {
             '           Situacao__c, ' + 
             '           QuantidadeLeadsChat__c, ' + 
             '           QuantidadeLeadsWhatsApp__c, ' + 
-            '           QuantidadeLeadsTelefone__c,UsuarioCorretor__c, ' + 
+            '           QuantidadeLeadsTelefone__c, ' + 
             '           QuantidadeLeadsLoja__c, ' + 
             '           QuantidadeLeadsStand__c, ' + 
             '           QuantidadeLeadsFaleConosco__c ' + 

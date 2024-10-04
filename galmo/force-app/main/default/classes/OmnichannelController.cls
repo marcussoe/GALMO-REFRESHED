@@ -74,6 +74,7 @@ public class OmnichannelController {
         return OmnichannelService.definirStatusInicial();
     }
 
+
     /**
      * Método responsável pela obtenção dos canais de atendimento relacionados às
      * roletas que o corretor é membro.

@@ -1,0 +1,61 @@
+<template>
+    <div class="slds-box">
+        <lightning-card icon-name="standard:quotes" title='Simulador de vendas' variant="narrow">
+            <div class="slds-grid slds-wrap"> 
+                <div class="slds-text-heading_small slds-col slds-size_1-of-1">
+                    <span>Agora é o momento de apresentar para o cliente as unidades disponíveis para compra e escolher a ideal! Para isso, utilize os filtros disponíveis para otimizar o processo de venda.</span>
+                </div>
+
+
+                <div class="slds-col slds-p-vertical_medium slds-size_1-of-1">
+                    <lightning-progress-indicator current-step={currentStepValue} type="base"  variant="base">
+                        <lightning-progress-step label="Espelho de vendas" value="espelho">
+                        </lightning-progress-step>
+
+                        <lightning-progress-step label="Informações da unidade" value="unidade">
+                        </lightning-progress-step>
+
+                        <lightning-progress-step label="Negociação" value="negociacao">
+                        </lightning-progress-step>
+
+                        <lightning-progress-step label="Extrato" value="extrato">
+                        </lightning-progress-step>
+                    </lightning-progress-indicator>
+                </div>
+
+                <div class="slds-co l slds-grid slds-p-vertical_medium slds-size_1-of-1 " style="gap: 2rem;">
+                    <template lwc:if={etapaEspelho}>
+                        <template for:each={produtosEstaticosId} for:item="produtoEstatico" for:index="index">
+                            <div style="cursor: pointer;" key={produtoEstatico.id} data-id={produtoEstatico.id}  class="slds-box slds-col slds-size_1-of-5" onclick={handleChooseUnidade}>
+                                <span>Produto {index}</span>
+                              </div>
+                        </template>
+                    </template>
+
+                    <template lwc:elseif={etapaUnidade}>
+                        <c-unidade-info-display class="slds-col slds-size_1-of-1"
+                         produto-selecionado={produtoEstatico}>
+                        </c-unidade-info-display>
+                    </template>
+
+                    <template lwc:elseif={etapaNegociacao}>
+                        <c-simulador-tela-negociacao id-empreendimento = {idEmpreendimento} id-unidade = {idUnidade}>
+
+                        </c-simulador-tela-negociacao>
+                    </template>
+                    
+                    <template lwc:else>
+                        <c-simulador-tela-extrato>
+                            
+                        </c-simulador-tela-extrato>
+                    </template>
+                </div>
+
+                <div class="slds-col slds-grid slds-p-vertical_medium slds-grid_align-end slds-size_1-of-1">
+                    <lightning-button variant="brand-outline" label="Voltar" title="Voltar para etapa anterior" onclick={doPrevStep} class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button variant="brand" label="Avançar" title="Avançar para etapa seguinte" onclick={doNextstep} class="slds-m-left_x-small"></lightning-button>
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+</template>

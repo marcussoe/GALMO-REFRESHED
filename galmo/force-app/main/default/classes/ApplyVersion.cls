@@ -1,36 +1,30 @@
 global class ApplyVersion implements Schedulable {
-    public Id leadid;
-    public DateTime limitDate;
-    
-    public ApplyVersion(Datetime limitDate){
-        this.limitDate = limitDate;
+    public Id leadId;
+
+    public ApplyVersion(Id leadId) {
+        this.leadId = leadId;
     }
-    
+
     global void execute(SchedulableContext SC) {
-        Lead ld = [Select id, 
-                       Status, 
-                       DataHoraVencimento__c,
-                       ConfiguracaoDeSLA__c, 
-                       ConfiguracaoDeSLA__r.FaseParaRedirecionamentoDoLead__c, 
-                       ConfiguracaoDeSLA__r.Fase__c, 
-                       ConfiguracaoDeSLA__r.FilaParaRedirecionamentoDoLead__c
-                   FROM Lead
-                   Where DataHoraVencimento__c <: this.limitDate
-                  ];
-        
-        if(ld.Status.equalsIgnoreCase(ld.ConfiguracaoDeSLA__r.Fase__c) && ld.DataHoraVencimento__c < DateTime.Now()){
-            ld.OwnerId = [Select Id from Group where Name =: ld.ConfiguracaoDeSLA__r.FilaParaRedirecionamentoDoLead__c].Id;
-            ld.Status = ld.ConfiguracaoDeSLA__r.FaseParaRedirecionamentoDoLead__c;
+        Lead ld = [Select Id,
+                           Status,
+                           DataHoraVencimento__c,
+                           ConfiguracaoDeSLA__c,
+                           ConfiguracaoDeSLA__r.Fase_para_redirecionamento_do_Lead__c,
+                           ConfiguracaoDeSLA__r.Step__c,
+                           ConfiguracaoDeSLA__r.Fila_para_redirecionamento_do_Lead__c
+                       FROM Lead
+                       Where Id = :this.leadId
+                      ];
+
+        if (ld.Status.equalsIgnoreCase(ld.ConfiguracaoDeSLA__r.Step__c) && ld.DataHoraVencimento__c < DateTime.now()) {
+            ld.OwnerId = [Select Id from Group where Name = :ld.ConfiguracaoDeSLA__r.Fila_para_redirecionamento_do_Lead__c LIMIT 1].Id;
+            ld.Status = ld.ConfiguracaoDeSLA__r.Fase_para_redirecionamento_do_Lead__c;
+
+          
             TriggerHandler.bypass('LeadTriggerHandler');
             update ld;
             TriggerHandler.clearBypass('LeadTriggerHandler');
-
         }
-
-        Datetime newDate =  Datetime.now().addMinutes(30);
-        String sch = newDate.Second()+ ' '+newDate.Minute()+ ' '+newDate.Hour()+' '+newDate.day()+' '+newDate.month()+' ?';
-        System.schedule(ld.Name + DateTime.now() , sch, new ApplyVerSion(newDate));
-
-
     }
 }

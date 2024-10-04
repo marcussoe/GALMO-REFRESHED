@@ -1,0 +1,116 @@
+.slds-card__footer {
+    background-color: black
+}
+
+:host {
+    --cor-reservada: #F7CAE4;
+    --cor-preEscritura: #5CCDA7;
+    --cor-emNegociacao: #FF9FC5;
+    --cor-alugada: #FCFCDA;
+    --cor-assinaturaDeContrato: #ADD5FA;
+    --cor-bloqueada: #FF9C9C;
+    --cor-proposta: #CFA8BB;
+    --cor-vendida: #FDFD96;
+    --cor-livre: #C7F6D4;
+    --cor-permuta: #D3BCF6;
+    --width-popover: 100rem;
+    --position-popover: 6000;
+    --size-badge: 115%;
+    --border-radius: 2rem;
+}
+
+
+.footer {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.unidade {
+    font-weight: bold;
+}
+
+.status {
+    font-size: 10px;
+}
+.divUnidadeStatus {
+    text-align: center;
+}
+
+.badgeUnit {
+    width: var(--size-badge);
+    display: flex;
+    justify-content: center;
+    border-radius: 1rem;
+    font-size: 85%;
+}
+.reservada {
+    --slds-c-modal-footer-color-background: var(--cor-reservada);
+    background-color: var(--cor-reservada);
+}
+.preEscritura {
+    --slds-c-modal-footer-color-background: var(--cor-preEscritura);
+    background-color: var(--cor-preEscritura);
+}
+
+.emNegociacao {
+    --slds-c-modal-footer-color-background: var(--cor-emNegociacao);
+    background-color: var(--cor-emNegociacao);
+}
+
+.alugada {
+    --slds-c-modal-footer-color-background: var(--cor-alugada);
+    background-color: var(--cor-alugada);
+}
+
+.assinaturaDeContrato {
+    --slds-c-modal-footer-color-background: var(--cor-assinaturaDeContrato);
+    background-color: var(--cor-assinaturaDeContrato);
+}
+
+.bloqueada {
+    --slds-c-modal-footer-color-background: var(--cor-bloqueada);
+    background-color: var(--cor-bloqueada);
+}
+
+.proposta {
+    --slds-c-modal-footer-color-background: var(--cor-proposta);
+    background-color: var(--cor-proposta);
+}
+
+.vendida {
+    --slds-c-modal-footer-color-background: var(--cor-vendida);
+    background-color: var(--cor-vendida);
+}
+
+.livre {
+    --slds-c-modal-footer-color-background: var(--cor-disponivel);
+    background-color: var(--cor-disponivel);
+}
+
+.permuta {
+    --slds-c-modal-footer-color-background: var(--cor-permuta);
+    background-color: var(--cor-permuta);
+}
+
+button:hover+.slds-popover.slds-popover_tooltip.slds-hide {
+    display: block !important;
+
+}
+
+.tooltip {
+    width: 200px;
+}
+
+
+@media screen and (max-width: 600px) {
+    .badgeUnit {
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        border-radius: 1rem;
+        font-size: 55%;
+    }
+}

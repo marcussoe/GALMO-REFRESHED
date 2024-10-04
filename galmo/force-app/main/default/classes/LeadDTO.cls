@@ -12,8 +12,8 @@ public class LeadDTO {
     public Datetime fimDialogo;
     public Datetime ultimaMensagem;
     public Datetime CreatedDate;
-    public String nomeCorretor;
-    public String telefone;
+
+    // Campos para uso no Omni-Channel
 
     public Decimal carga;
     public Decimal cargaRestante;
@@ -35,8 +35,6 @@ public class LeadDTO {
         this.fimDialogo = camposLeadPorNomeAPI.containsKey('FimDialogo__c') ? lead.FimDialogo__c : null;
         this.ultimaMensagem = camposLeadPorNomeAPI.containsKey('UltimaMensagem__c') ? lead.UltimaMensagem__c : null;
         this.CreatedDate = camposLeadPorNomeAPI.containsKey('CreatedDate') ? lead.CreatedDate : null;
-        //this.nomeCorretor = (lead.CorretorContato__r != null) ? lead.CorretorContato__r.Name : null;
-        this.telefone = camposLeadPorNomeAPI.containsKey('Phone') ? lead.Phone : null;
     }
 
     public LeadDTO(Lead lead, ConfiguracaoCanalAtendimento__mdt configuracaoCanalAtendimento) {

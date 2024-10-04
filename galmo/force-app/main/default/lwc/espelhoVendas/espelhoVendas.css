@@ -1,0 +1,101 @@
+:host {
+    --cor-reservada: #F7CAE4;
+    --cor-preEscritura: #5CCDA7;
+    --cor-emNegociacao: #FF9FC5;
+    --cor-alugada: #FCFCDA;
+    --cor-assinaturaDeContrato: #ADD5FA;
+    --cor-bloqueada: #FF9C9C;
+    --cor-proposta: #CFA8BB;
+    --cor-vendida: #FDFD96;
+    --cor-disponivel: #C7F6D4;
+    --cor-permuta: #D3BCF6;
+    
+}
+
+.li-card{
+    margin: 0.5%;
+}
+
+.panel{
+    z-index: 1;
+    position: absolute!important;
+    right: 100;
+    top: 2rem;
+    background-color: rgb(208, 209, 210);
+    width: 400px;
+    overflow: scroll;
+    direction: ltr;
+}
+
+.teste{
+    direction: ltr;
+}
+
+.reservada {
+    --slds-c-badge-color-background: var(--cor-reservada);
+    --slds-c-badge-text-color: var(--cor-letra);
+}
+.preEscritura {
+    --slds-c-badge-color-background: var(--cor-preEscritura);
+    --slds-c-badge-text-color: var(--cor-letra);
+}
+
+.emNegociacao {
+    --slds-c-badge-color-background: var(--cor-emNegociacao);
+    --slds-c-badge-text-color: var(--cor-letra);
+    
+}
+
+.alugada {
+    --slds-c-badge-color-background: var(--cor-alugada);
+    --slds-c-badge-text-color: var(--cor-letra);
+}
+
+.assinaturaDeContrato {
+    --slds-c-badge-color-background: var(--cor-assinaturaDeContrato);
+    --slds-c-badge-text-color: var(--cor-letra)
+}
+
+.vendidaPreContrato{
+    --slds-c-badge-color-background: var(--cor-vendidaPreContrato) ;
+    --slds-c-badge-text-color: var(--cor-letra)
+}
+
+.bloqueada {
+    --slds-c-badge-color-background: var(--cor-bloqueada);
+    --slds-c-badge-text-color: var(--cor-letra)
+}
+
+.proposta {
+    --slds-c-badge-color-background: var(--cor-proposta);
+    --slds-c-badge-text-color: var(--cor-letra) 
+}
+
+.vendida {
+    --slds-c-badge-color-background: var(--cor-vendida) ;
+    --slds-c-badge-text-color: var(--cor-letra)
+}
+
+.disponivel {
+    --slds-c-badge-color-background: var(--cor-disponivel);
+    --slds-c-badge-text-color: var(--cor-letra)
+}
+
+.permuta {
+    --slds-c-badge-color-background: var(--cor-permuta);
+    --slds-c-badge-text-color: var(--cor-letra)
+}
+
+.qtdUnidadesSituacao {
+    /* display: flex; */
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #c73e80;
+}
+
+
+.badge:hover {
+    cursor: pointer;
+}

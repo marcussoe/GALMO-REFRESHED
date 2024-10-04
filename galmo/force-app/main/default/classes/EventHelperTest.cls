@@ -1,106 +1,221 @@
 @isTest
 public class EventHelperTest {
+
     @TestSetup
     static void makeData(){
         doCreateData();
     }
+
     private static void doCreateData(){
-        Empreendimento__c empreendimento = new Empreendimento__c();
-        empreendimento.Name = 'Empreendimento de Teste';
-        insert empreendimento;
+        Enterprise__c empreendimento = new Enterprise__c(Name = 'Teste empreendimento',CNPJ__c ='07135796000139');
+       insert empreendimento;
+     
+        Lead testLeadNovo = new Lead(
+            LastName = 'Silva',
+            Company = 'Empresa XYZSantiago',
+            Email = 'silva@xyz.com',
+            LeadSource = 'Chat',
+            CanalAtendimento__c = 'Telefone',
+            MobilePhone = '11987654321',
+            Status = 'Novo', 
+            EmpreendimentoInteresseLead__c = empreendimento.Id
+        );
+
+        
+        insert testLeadNovo;
+
     
-        List<Lead> leads = new List<Lead>{
-            new Lead(
-                LastName = 'Paulo',
-                Company = 'Elera',
-                Email = 'paulo@emaill.com',
-                LeadSource = 'Telefone',
-                CanalAtendimento__c = 'Chat',
-                MobilePhone = '11960387699',
-                Status = 'Agendamento de Visita',
-                EmpreendimentoInteresse__c = empreendimento.Id 
-            ),
-            new Lead(
-                LastName = 'Igor',
-                Company = 'Elera',
-                Email = 'igor@email.com',
-                LeadSource = 'Telefone',
-                CanalAtendimento__c = 'Chat',
-                MobilePhone = '11960387699',
-                Status = 'Agendamento de Visita',
-                EmpreendimentoInteresse__c = empreendimento.Id 
-            )
-        };
-        insert leads;
+        testLeadNovo.Status = 'Tentativa de Contato';
+        update testLeadNovo;
 
-        Task task = new Task(
-            Subject = 'WhatsApp',
-            WhoId = leads[0].Id,
-            ActivityDate = Date.today().addDays(5),
-            Status = 'Completed'
-        );
-
-        insert task;
-
-        Task Task2 = new Task(
+       
+        Task taskNovo = new Task(
             Subject = 'Chamada',
-            WhoId = leads[1].Id,
-            ActivityDate = Date.today().addDays(-5),
-            Status = 'Completed'
+            Status = 'Open',
+            WhoId = testLeadNovo.Id
+        );
+        insert taskNovo;
+
+        taskNovo.Status = 'Completed';
+
+        update taskNovo;
+
+        testLeadNovo.Status = 'Contato Realizado';
+        update testLeadNovo;
+        
+        
+        
+        testLeadNovo.Status = 'Agendamento de Visita';
+        update testLeadNovo;
+        
+
+
+        Lead testLeadNovo2 = new Lead(
+            LastName = 'Santos',
+            Company = 'Empresa Santos',
+            Email = 'santos@email.com',
+            LeadSource = 'Chat',
+            CanalAtendimento__c = 'Telefone',
+            MobilePhone = '11943354474',
+            Status = 'Novo', 
+            EmpreendimentoInteresseLead__c = empreendimento.Id
         );
 
-        insert Task2;
-    }
-    @isTest
-    public static void validateLeadStatusTest(){
-        List<Lead> leads = [SELECT Id, Status FROM Lead];
-        System.debug('leads: '+leads);
+        insert testLeadNovo2;
+
+    
+        testLeadNovo2.Status = 'Tentativa de Contato';
+        update testLeadNovo2;
+
+       
+        Task taskNovo2 = new Task(
+            Subject = 'Chamada',
+            Status = 'Open',
+            WhoId = testLeadNovo2.Id
+        );
+        insert taskNovo2;
+
+        taskNovo2.Status = 'Completed';
+        update taskNovo2;
+
+        testLeadNovo2.Status = 'Contato Realizado';
+        update testLeadNovo2;
+
+        testLeadNovo2.Status = 'Agendamento de Visita';
+        update testLeadNovo2;
+
+
+        Lead testLeadNovo3 = new Lead(
+            LastName = 'Lopes',
+            Company = 'Empresa Lopes',
+            Email = 'Lopes@email.com',
+            LeadSource = 'Chat',
+            CanalAtendimento__c = 'Telefone',
+            MobilePhone = '11943354412',
+            Status = 'Novo', 
+            EmpreendimentoInteresseLead__c = empreendimento.Id
+        );
+
         
-        List<Event> events = new List<Event> {
+        insert testLeadNovo3;
+
+    
+        testLeadNovo3.Status = 'Tentativa de Contato';
+        update testLeadNovo3;
+
+       
+        Task taskNovo3 = new Task(
+            Subject = 'Chamada',
+            Status = 'Open',
+            WhoId = testLeadNovo3.Id
+        );
+        insert taskNovo3;
+
+        taskNovo3.Status = 'Completed';
+
+        update taskNovo3;
+
+        testLeadNovo3.Status = 'Contato Realizado';
+        update testLeadNovo3;
+        testLeadNovo3.Status = 'Agendamento de Visita';
+        update testLeadNovo3;
+    }
+    
+    
+    
+    
+    
+    
+    
+
+    @IsTest
+    public static void validateEventDateTest(){
+        List<Lead> leads = [SELECT Id, Status FROM Lead];
+
+        System.debug('leads' + leads);
+        
+        List<Event> events = new List<Event>{
             new Event(
-                Subject = 'Teste01',
-                Type = 'Visita',
-                ActivityDate = Date.today(),
-                DurationInMinutes = 60,
-                ActivityDateTime = Datetime.now(),
-                WhoId = leads.get(0).Id,
-                Status_do_Compromisso__c = 'Realizada com Sucesso',
-                Location = 'teste'
-            ),
-            new Event(
-                Subject = 'Teste02',
-                Type = 'Visita',
-                ActivityDate = Date.today(),
-                DurationInMinutes = 60,
-                ActivityDateTime = Datetime.now(),
-                WhoId = leads.get(1).Id,
-                Status_do_Compromisso__c = 'Não Realizada',
-                Motivo_da_visita_n_o_realizada__c = 'Status',
-                Location = 'teste'
+                WhoId = leads[0].Id,
+                Subject = 'Visita',
+                ActivityDate = Date.today().addDays(5),
+                DurationInMinutes = 8,
+                StatusCompromisso__c = 'Realizada com Sucesso',
+                ActivityDateTime = Datetime.now()
             )
         };
 
-        
-        insert events;
-        List<Event> ev = [SELECT WhoId, Type, DurationInMinutes, Status_do_Compromisso__c, ActivityDate, Motivo_da_visita_n_o_realizada__c, EndDateTime FROM Event];
-
-        System.debug('lista ev: ' + ev);
         Test.startTest();
         
-       
-        EventHelper.validateEventStatus(ev);
+        EventHelper.validateEventDate(events);
         
-        EventHelper.validateEventDate(ev);
+        Test.stopTest();
+
+        System.assert(!events.get(0).hasErrors());
+    }
+
+
+    @IsTest
+    public static void validadeLeadStatusTest(){
+        List<Lead> leads = [SELECT Id, Status FROM Lead];
+
+        List<Event> events = new List<Event>{
+            new Event(
+                WhoId = leads[1].Id,
+                Subject = 'Visita',
+                DurationInMinutes = 8,
+                StatusCompromisso__c = 'Realizada com Sucesso',
+                ActivityDateTime = Datetime.now()
+            )
+        };
+        insert events;
+        
+        List<Event> ev = [SELECT WhoId, Subject, DurationInMinutes, StatusCompromisso__c, ActivityDate, MotivoVisitaNaoRealizada__c FROM Event];
+
+        Test.startTest();
+        
+        EventHelper.validateLeadStatus(events);
+        
+        Test.stopTest();
+
+        System.assert(events.get(0).hasErrors());
+    }
+
+
+    @isTest
+    public static void validateEventStatusTest(){
+        List<Lead> leads = [SELECT Id, Status FROM Lead];
+
+        System.debug('leads' + leads);
+        
+        List<Event> events = new List<Event>{
+            new Event(
+                WhoId = leads[0].Id,
+                Subject = 'Visita',
+                DurationInMinutes = 8,
+                StatusCompromisso__c = 'Realizada com Sucesso',
+                ActivityDateTime = Datetime.now()
+            ),
+            new Event(
+                WhoId = leads[2].Id,
+                Subject = 'Visita',
+                DurationInMinutes = 8,
+                StatusCompromisso__c = 'Não Realizada',
+                MotivoVisitaNaoRealizada__c = 'Fora da cidade',
+                ActivityDateTime = Datetime.now()
+            )
+        };
+        insert events;
+        
+        List<Event> ev = [SELECT WhoId, Subject, DurationInMinutes, StatusCompromisso__c, ActivityDate, MotivoVisitaNaoRealizada__c FROM Event];
+
+        Test.startTest();
+        
+        EventHelper.validateEventStatus(ev);
         
         Test.stopTest();
 
         System.assert(!ev.get(0).hasErrors());
-
-        
-      	
-        Test.stopTest();
-
-
     }
-    
+
 }

@@ -1,0 +1,36 @@
+<template>
+  <div class={unitClass} aria-describedby="help" onmouseenter={exibirTooltip} onmouseleave={fecharTooltip}>
+    <div class="divUnidadeStatus"><span class="unidade">Unidade {unidade}</span><br> <span
+        class="status">{status}</span></div>
+    <section onmouseleave={exibirTooltip} aria-describedby="dialog-body-id-112" class={tooltipClass} role="dialog"
+      style="top: 2.5rem;">
+      <div class="slds-popover__body" id="dialog-body-id-112">
+        <div class="slds-media">
+          <div class="slds-media__body">
+            <header class="slds-popover__header slds-border_bottom header">
+              <h2 class="slds-text-heading_medium slds-text-title_bold">
+                {empreendimento} - {unidade}
+              </h2>
+            </header>
+            <p><b>Andar: </b>{andar}</p>
+            <p><b>Tipo: </b>{tipo}</p>
+            <p><b>Metragem: </b>{area}m²</p>
+            <p><b>Situação: </b>{status}</p>
+            <p><b>Valor: </b>{valor}</p>
+          </div>
+        </div>
+      </div>
+      <footer class="slds-popover__footer footer">
+        <div class="slds-grid slds-grid_vertical-align-center">
+          <lightning-button-group class="slds-align_absolute-center">
+            <lightning-button-icon icon-name="utility:preview" title="Detalhes"
+              onclick={irParaUnidade}></lightning-button-icon>
+
+            <lightning-button-icon icon-name="utility:currency" title="Simular venda"
+              onclick={simularVenda}></lightning-button-icon>
+          </lightning-button-group>
+        </div>
+      </footer>
+    </section>
+  </div>
+</template>

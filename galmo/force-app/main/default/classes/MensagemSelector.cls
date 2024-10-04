@@ -40,6 +40,7 @@ public without sharing class MensagemSelector {
                 URLMidia__c
             FROM Mensagem__c
             WHERE ChaveExternaCliente__c IN :chavesExternasClientes
+            ORDER BY DataHora__c ASC
         ];
     }
 }

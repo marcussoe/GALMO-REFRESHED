@@ -10,8 +10,8 @@ public class ConciergeController {
     }
 
     @AuraEnabled
-    public static String obterLeadsPorInformacoesConcierge(String celular, String email, Boolean isJuridica , String phone) {
-        return ConciergeService.obterLeadsPorInformacoesConcierge(celular, email, isJuridica  , phone);
+    public static String obterLeadsPorInformacoesConcierge(String celular, String email, Boolean isJuridica) {
+        return ConciergeService.obterLeadsPorInformacoesConcierge(celular, email, isJuridica);
     }
 
     @AuraEnabled

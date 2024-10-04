@@ -81,7 +81,11 @@ private class DistribuirLeadsServiceTest {
             LastName = 'Raposo',
             Company = 'porao',
             Status = 'Novo',
-            CanalAtendimento__c = 'Whatsapp'
+            CanalAtendimento__c = 'Whatsapp',
+            MobilePhone = '(61) 98625-5544', 
+            Email = 'bento.araujo@geradornv.com.br',
+            LeadSource = 'Instagram',
+            EstadoCivil__c = 'Solteiro(a)'
         );
         insert lead;
     }
@@ -89,11 +93,10 @@ private class DistribuirLeadsServiceTest {
     @isTest
     static void testarDistribuirLeads() {
         Lead lead = [SELECT CanalAtendimento__c, RoletaLeads__c, Corretor__c FROM Lead LIMIT 1];
-
-        DistribuirLeadsService.distribuirLeads(new List<Lead>{ lead });
+        List<ParticipanteRoleta__c> participante = [SELECT Entrada__c, MembroEquipe__c, RoletaLeads__c FROM ParticipanteRoleta__c LIMIT 1];
+        DistribuirLeadsService.distribuirLeads(New List<Lead>{lead});
 
         User usuario = [SELECT Id FROM User WHERE Username = 'ksaoidsjadosajoidasjiokdaso@rsis.com'];
-
         Assert.areEqual(lead.Corretor__c, usuario.Id, 'Lead distribuído corretamente');
     }
 }

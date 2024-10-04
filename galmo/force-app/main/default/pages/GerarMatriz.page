@@ -1,0 +1,44 @@
+<apex:page standardController="TabelaVendas__c" extensions="SeriePagamentosExtension">
+    <apex:pageMessages />
+    <apex:form >
+        <!-- Renderizar a tabela de Série de Pagamentos -->
+        <apex:pageBlock title="Séries de Pagamentos">
+            <apex:pageBlockTable value="{!seriesDePagamentos}" var="wrapper">
+                <apex:column headerValue="Tipo de Condição">
+                    <apex:outputText value="{!wrapper.serie.TipoCondicao__c}" />
+                </apex:column>
+                <apex:column headerValue="Início de Pagamento">
+                    <apex:outputText value="{!wrapper.serie.InicioPagamento__c}" />
+                </apex:column>
+                <apex:column headerValue="Total (%)">
+                    <apex:outputText value="{0, number, #,##0.00} %">
+                        <apex:param value="{!wrapper.serie.ValorTotal__c}" />
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Valor Total (R$)">
+                    <apex:outputText value="R$ {0, number, #,##0.00}">
+                        <apex:param value="{!wrapper.valorTotalReais}" />
+                    </apex:outputText>
+                </apex:column>
+                <apex:column headerValue="Quantidade de Parcelas">
+                    <apex:outputText value="{!wrapper.serie.QuantidadeParcelas__c}" />
+                </apex:column>
+                <apex:column headerValue="Periodicidade">
+                    <apex:outputText value="{!wrapper.serie.Periodicidade__c}" />
+                </apex:column>
+                <apex:column headerValue="Após Habite-se">
+                    <!-- Usa checkbox para representar valores booleanos -->
+                    <apex:inputCheckbox value="{!wrapper.serie.AposHabiteSe__c}" disabled="true"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+        <!-- Seção para exibir o valor total em reais -->
+        <apex:pageBlock title="Valor Total das Séries de Pagamentos">
+            <apex:outputText value="Valor Total (R$): " style="font-weight:bold;"/>
+            <apex:outputText value="R$ {0, number, #,##0.00}">
+                <apex:param value="{!valorTotalGeralReais}" />
+            </apex:outputText>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

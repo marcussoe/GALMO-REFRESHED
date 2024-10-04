@@ -6,33 +6,6 @@
     <description>[Oportunidade] Criar e Gerenciar oportunidades (Pipeline #LOCATÁRIO)</description>
     <label>Locatário</label>
     <picklistValues>
-        <picklist>CanalAtendimento__c</picklist>
-        <values>
-            <fullName>Chat</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fale conosco</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Loja</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Stand</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Telefone</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>WhatsApp</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>ForecastCategoryName</picklist>
         <values>
             <fullName>Best Case</fullName>
@@ -111,70 +84,6 @@
         </values>
         <values>
             <fullName>radio</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Loss_Reason__c</picklist>
-        <values>
-            <fullName>Lost to Competitor</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>No Budget %2F Lost Funding</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>No Decision %2F Non-Responsive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Price</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>ObjetivoCompra__c</picklist>
-        <values>
-            <fullName>Filhos</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Investimento</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Moradia</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Outros</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>StatusAprovacao__c</picklist>
-        <values>
-            <fullName>Aprovado</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reprovado</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>TipoVenda__c</picklist>
-        <values>
-            <fullName>Negócio existente</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Negócio novo</fullName>
             <default>false</default>
         </values>
     </picklistValues>

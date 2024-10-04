@@ -1,6 +1,6 @@
 public class ValidarCNPJ {
 
-    public static Boolean validarCNPJ(String cnpj) {
+   public static Boolean validarCNPJ(String cnpj) {
     
             cnpj= cnpj.replaceAll('[^0-9]', '');
 

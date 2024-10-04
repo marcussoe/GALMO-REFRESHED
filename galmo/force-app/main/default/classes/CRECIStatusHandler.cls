@@ -3,8 +3,8 @@ public class CRECIStatusHandler {
         Date dataAtual = Date.today();
         
         for (Contact record : records) {
-            if (record.DatadeVencimento__c != null) {
-                if (record.DatadeVencimento__c >= dataAtual) {
+            if (record.DataVencimento__c!= null) {
+                if (record.DataVencimento__c>= dataAtual) {
                     record.CRECIAtivo__c = true;
                 } else {
                     record.CRECIAtivo__c = false;

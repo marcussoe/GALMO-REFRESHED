@@ -17,7 +17,7 @@ public class RoletaLeadsHelper {
                     String sch = horaFim.second() + ' ' + horaFim.minute() + ' ' + horaFim.hour() + ' * * ?';
                     System.debug('Agendando job com expressão cron: ' + sch);
         
-                    System.schedule('Limpar Participantes da Roleta ' + roleta.Name + ' ' + DateTime.now().getTime(), sch, new RoletaScheduler(roleta.Id));
+                    System.schedule('Limpar Participantes da Roleta atual ' + roleta.Name + ' ' + DateTime.now().getTime(), sch, new RoletaScheduler(roleta.Id));
                 }
             }
         }

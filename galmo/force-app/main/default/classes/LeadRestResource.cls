@@ -1,14 +1,14 @@
 @RestResource(urlMapping='/Lead/*')
 global with sharing class LeadRestResource {
 
+    
     public class LeadDto {
-        public String LastName;
-        public String Company;
-        public String Email;
-        public String MobilePhone;
-        public String LeadSource;
-        public String Status;
-
+        public String LastName { get; set; }
+        public String Company { get; set; }
+        public String Email { get; set; }
+        public String MobilePhone { get; set; }
+        public String LeadSource { get; set; }
+        public String Status { get; set; }
 
         public LeadDto(Lead lead) {
             this.LastName = lead.LastName;
@@ -20,11 +20,12 @@ global with sharing class LeadRestResource {
         }
     }
 
+   
     public class CampaignDto {
-        public String Name;
-        public String Type;
-        public String Status;
-        public Boolean IsActive;
+        public String Name { get; set; }
+        public String Type { get; set; }
+        public String Status { get; set; }
+        public Boolean IsActive { get; set; }
 
         public CampaignDto(Campaign campaign) {
             this.Name = campaign.Name;
@@ -34,9 +35,10 @@ global with sharing class LeadRestResource {
         }
     }
 
+  
     public class LeadCampaignDto {
-        public LeadDto lead;
-        public CampaignDto campaign;
+        public LeadDto lead { get; set; }
+        public CampaignDto campaign { get; set; }
 
         public LeadCampaignDto(LeadDto lead, CampaignDto campaign) {
             this.lead = lead;
@@ -44,139 +46,54 @@ global with sharing class LeadRestResource {
         }
     }
 
+  
     @HttpPost
     global static void doPost() {
         RestContext.response.statusCode = 400;
         RestContext.response.responseBody = Blob.valueOf('Ocorreu um erro inesperado.');
+
         List<LeadCampaignDto> createdLeads = new List<LeadCampaignDto>();
         List<String> errors = new List<String>();
-        List<String> successMessages = new List<String>();
 
         try {
             RestRequest req = RestContext.request;
             List<Object> leadsParamsObject = (List<Object>) JSON.deserializeUntyped(req.requestBody.toString());
             List<Map<String, Object>> leadsParams = new List<Map<String, Object>>();
+
             for (Object leadParam : leadsParamsObject) {
                 leadsParams.add((Map<String, Object>) leadParam);
             }
+
             Set<String> processedLeads = new Set<String>();
-
-
-             Map<String, Id> recordTypeMap = new Map<String, Id>();
-             for (RecordType rt : [SELECT Id, Name FROM RecordType WHERE SObjectType = 'Lead']) {
-                 recordTypeMap.put(rt.Name, rt.Id);
-             }
-
 
             for (Map<String, Object> params : leadsParams) {
                 String leadKey = String.valueOf(params);
+
                 if (processedLeads.contains(leadKey)) {
-                    RestContext.response.statusCode = 400;
-                    RestContext.response.responseBody = Blob.valueOf('Falha: Um Lead idêntico já foi processado.');
+                    errors.add('Falha: Um Lead idêntico já foi processado.');
                     continue;
                 }
+
                 processedLeads.add(leadKey);
 
-                String recordTypeName = (String) params.get('RecordTypeName');
-                if (String.isBlank(recordTypeName)) {
-                    errors.add('Falha: O campo RecordTypeName é obrigatório.');
+                if (!validateRequiredFields(params, errors)) {
                     continue;
                 }
 
-                Map<String, String> requiredFields;
-                if (recordTypeName.contains('Pessoa Física')) {
-                    requiredFields = new Map<String, String>{
-                        'LastName' => 'Sobrenome',
-                        'Company' => 'Empresa',
-                        'LeadSource' => 'Fonte do Lead',
-                        'CanalAtendimento__c' => 'Canal de Atendimento',
-                        'EmpreendimentoInteresse__c' => 'Empreendimento de Interesse',
-                        'MobilePhone' => 'Telefone Móvel',
-                        'Status' => 'Status'
-                    };
-                } else if (recordTypeName.contains('Pessoa Jurídica')) {
-                    requiredFields = new Map<String, String>{
-                        'LastName' => 'Sobrenome',
-                        'Company' => 'Empresa',
-                        'LeadSource' => 'Fonte do Lead',
-                        'CanalAtendimento__c' => 'Canal de Atendimento',
-                        'EmpreendimentoInteresse__c' => 'Empreendimento de Interesse',
-                        'Phone' => 'Telefone',
-                        'Status' => 'Status'
-                    };
-                } 
-                else{
-                    errors.add('Falha: Tipo de Registro desconhecido.');
+                Lead potentialDuplicate = findPotentialDuplicate(params);
+
+                if (potentialDuplicate != null) {
+                    handleLeadReiteration(potentialDuplicate, params);
+                    errors.add('Um Lead existente foi encontrado. ID do Lead: ' + potentialDuplicate.Id);
                     continue;
                 }
 
-                Boolean skipProcessing = false;
-                String campaignName;
-                Campaign campaign;
-                for (String fieldName : requiredFields.keySet()) {
-                    if (!params.containsKey(fieldName) || String.isBlank((String)params.get(fieldName))) {
-                        errors.add('Lead com sobrenome ' + params.get('LastName') + ': O campo ' + requiredFields.get(fieldName) + ' é obrigatório.');
-                        skipProcessing = true;
-                        break;
-                    }
-                }
-                if (skipProcessing) continue;
+                Lead newLead = createNewLead(params);
 
-                List<Lead> potentialDuplicateLeads = [
-                    SELECT Id, LastName, MobilePhone, Email, EmpreendimentoInteresse__c, LeadSource, ltima_Reitera_o__c, PrimeiraInteracao__c, QuantidadeDeReiteracoes__c, PrimeiroEmpreendimento__c, MidiaOriginal__c, OwnerId
-                    FROM Lead 
-                    WHERE LastName = :params.get('LastName').toString() 
-                    AND (
-                        MobilePhone = :String.valueOf(params.get('MobilePhone')) OR
-                        Email = :params.get('Email').toString() OR
-                        EmpreendimentoInteresse__c = :params.get('EmpreendimentoInteresse__c').toString()
-                    )
-                    LIMIT 1
-                ];
+                Campaign campaign = findOrCreateCampaign(params);
 
-                if (!potentialDuplicateLeads.isEmpty()) {
-                    Lead existingLead = potentialDuplicateLeads[0];
-                    LeadHelper.handleLeadReiteration(existingLead, params);
-                    errors.add('Lead com sobrenome ' + params.get('LastName') + ': Um Lead existente foi encontrado. ID do Lead: ' + existingLead.Id);
-                    RestContext.response.statusCode = 200;
-                    RestContext.response.responseBody = Blob.valueOf('Lead com sobrenome ' + params.get('LastName') + ': Um Lead existente foi encontrado. ID do Lead: ' + existingLead.Id);
+                if (campaign == null) {
                     return;
-                }
-                
-                
-
-                Lead newLead = new Lead();
-                for (String fieldName : params.keySet()) {
-                    if (fieldName != 'campaignName') {
-                        newLead.put(fieldName, params.get(fieldName));
-                    }
-                }
-                newLead.QuantidadeDeReiteracoes__c = 0;
-
-                insert newLead;
-
-                if (params.containsKey('campaignName')) {
-                    campaignName = (String)params.get('campaignName');
-                    List<Campaign> existingCampaigns = [SELECT Id, Name, Type, Status, IsActive FROM Campaign WHERE Name = :campaignName LIMIT 1];
-                    if (existingCampaigns.isEmpty()) {
-                        RestContext.response.statusCode = 400;
-                        RestContext.response.responseBody = Blob.valueOf('Falha: Não existe uma campanha com o nome ' + campaignName);
-                        return;
-                    } else {
-                        campaign = existingCampaigns[0];
-                    }
-                } else {
-                    campaignName = (String)params.get('LeadSource');
-                    if (String.isBlank(campaignName)) {
-                        campaignName = 'Campanha Padrão';
-                    }
-                    List<Campaign> existingCampaigns = [SELECT Id, Name, Type, Status, IsActive FROM Campaign WHERE Name = :campaignName LIMIT 1];
-                    if (existingCampaigns.isEmpty()) {
-                        campaign = new Campaign(Name = campaignName);
-                        insert campaign;
-                    } else {
-                        campaign = existingCampaigns[0];
-                    }
                 }
 
                 CampaignDto campaignDto = new CampaignDto(campaign);
@@ -184,22 +101,7 @@ global with sharing class LeadRestResource {
                 LeadCampaignDto leadCampaignDto = new LeadCampaignDto(leadDto, campaignDto);
                 createdLeads.add(leadCampaignDto);
 
-                CampaignMember campaignMember = new CampaignMember(
-                    CampaignId = campaign.Id,
-                    LeadId = newLead.Id,
-                    Status = 'Enviado'
-                );
-
-                insert campaignMember;
-
-
-
-                CampaignHistory__c ch = new CampaignHistory__c(
-                    LeadId__c = newLead.Id,
-                    CampaignId__c = campaign.Id,
-                    Change_Date__c = System.now()
-                );
-                insert ch;
+                createCampaignMember(newLead, campaign);
             }
 
             if (errors.isEmpty()) {
@@ -214,5 +116,81 @@ global with sharing class LeadRestResource {
             RestContext.response.statusCode = 400;
             RestContext.response.responseBody = Blob.valueOf('Falha: ' + e.getMessage());
         }
+    }
+
+   
+    private static Boolean validateRequiredFields(Map<String, Object> params, List<String> errors) {
+        Map<String, String> requiredFields = new Map<String, String>{
+            'LastName' => 'Sobrenome',
+            'Company' => 'Empresa',
+            'LeadSource' => 'Fonte do Lead',
+            'CanalAtendimento__c' => 'Canal de Atendimento',
+            'EmpreendimentoInteresseLead__c' => 'Empreendimento de Interesse',
+            'MobilePhone' => 'Telefone',
+            'Status' => 'Status'
+        };
+
+        for (String fieldName : requiredFields.keySet()) {
+            if (!params.containsKey(fieldName) || String.isBlank((String) params.get(fieldName))) {
+                errors.add('Campo obrigatório ausente: ' + requiredFields.get(fieldName));
+                return false;
+            }
+        }
+        return true;
+    }
+  
+    private static Lead findPotentialDuplicate(Map<String, Object> params) {
+        return LeadDA.findPotentialDuplicateLeads(params).isEmpty() ? null : LeadDA.findPotentialDuplicateLeads(params)[0];
+    }
+
+   
+    private static void handleLeadReiteration(Lead existingLead, Map<String, Object> params) {
+        LeadHelper.handleLeadReiteration(existingLead, params);
+    }
+
+   
+    private static Lead createNewLead(Map<String, Object> params) {
+        Lead newLead = new Lead();
+
+        for (String fieldName : params.keySet()) {
+            if (!fieldName.equalsIgnoreCase('campaignName')) {
+                newLead.put(fieldName, params.get(fieldName));
+            }
+        }
+
+        newLead.QuantidadeReiteracoes__c = 0;
+        insert newLead;
+
+        return newLead;
+    }
+
+   
+    private static Campaign findOrCreateCampaign(Map<String, Object> params) {
+        String campaignName = params.containsKey('campaignName') ? (String) params.get('campaignName') : (String) params.get('LeadSource');
+
+        Campaign campaign = LeadDA.findCampaignByName(campaignName);
+
+        if (campaign == null) {
+            RestContext.response.responseBody = Blob.valueOf('Falha: Não existe uma campanha com o nome ' + campaignName);
+            return null;
+        }
+
+        if (!params.containsKey('campaignName')) {
+            LeadDA.createCampaignIfNotExist(campaignName);
+            campaign = LeadDA.findCampaignByName(campaignName);
+        }
+
+        return campaign;
+    }
+
+    
+    private static void createCampaignMember(Lead newLead, Campaign campaign) {
+        CampaignMember campaignMember = new CampaignMember(
+            CampaignId = campaign.Id,
+            LeadId = newLead.Id,
+            Status = 'Enviado'
+        );
+
+        insert campaignMember;
     }
 }

@@ -2,14 +2,18 @@
 public class ValidarCPFFromContaTriggerTest {
 
     @isTest
-    static void testTriggerCPFValido() {
-        Account acc = new Account();
-        acc.FirstName = 'Test';
-        acc.LastName = 'Conta';
-        acc.CPF__pc = '12345678909'; // CPF válido
-        insert acc;
-        System.assertNotEquals(null, acc.Id);
-    }
+  static void testTriggerCPFValido() {
+    Account acc = new Account();
+    acc.FirstName = 'Test';
+    acc.LastName = 'Conta';
+    acc.CPF__pc = '12345678909'; 
+    acc.PersonEmail = 'castalwillleo@example.com';
+    acc.PersonMobilePhone = '11697487499'; 
+  
+    insert acc;
+   
+    System.assertNotEquals(null, acc.Id);
+}
 
     @isTest
     static void testTriggerCPFInvalido() {

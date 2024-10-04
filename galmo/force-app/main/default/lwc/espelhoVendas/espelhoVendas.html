@@ -1,0 +1,250 @@
+<template>
+    <lightning-card icon-name="custom:custom93" title={rotulos.TituloEspelhoVendas} variant="narrow">
+        <div class="slds-card__body slds-card__body_inner">
+
+
+            <div class="slds-card__body slds-card__body_inner slds-box slds-grid slds-wrap"
+                if:true={optionsEmpreendimentos}>
+                <div class="slds-size_6-of-12 slds-p-right_small">
+                    <lightning-combobox class="empreendimento " name="empreendimento" label="Selecione o empreendimento"
+                        value={valueEmpreendimento} options={optionsEmpreendimentos}
+                        placeholder="Pesquisar empreendimentos" onchange={handleChangeEmpreendimento}
+                        oninput={handleSearchChange}>
+                    </lightning-combobox>
+
+                </div>
+
+                <div class="slds-size_3-of-12 slds-p-right_small">
+                    <lightning-combobox name="Estado" label="Estado" value={valueUF} placeholder="Pesquise por estado"
+                        options={optionsUF} onchange={handleChangeUF}></lightning-combobox>
+                </div>
+                <div class="slds-size_3-of-12">
+                    <lightning-combobox name="regiao" label="Região" placeholder="Pesquise por região"
+                        options={optionsRegiao} onchange={handleChangeRegiao}></lightning-combobox>
+                </div>
+
+
+
+                <div class="slds-size_6-of-12 slds-p-right_small">
+                    <lightning-combobox name="bloco" label={rotulos.TituloTorre} value={valueTorre}
+                        options={optionsTorre} placeholder={rotulos.PlaceholderTorre} onchange={handleChangeTorre}>
+                    </lightning-combobox>
+                </div>
+
+                <div class="slds-size_3-of-12 slds-p-right_small">
+                    <lightning-combobox name="andar" label={rotulos.TituloAndar} value={valueAndar}
+                        options={optionsAndar} placeholder="Pesquisar por Andar" onchange={handleChangeAndar}>
+                    </lightning-combobox>
+                </div>
+
+                <div class="slds-size_3-of-12">
+                    <lightning-combobox name="tipoImovel" label={rotulos.TituloTipoImovel} value={valueImovel}
+                        options={optionsImovel} placeholder={rotulos.PlaceholderCampoPesquisaTiposImoveis}
+                        onchange={handleChangeTipoImoveis}>
+                    </lightning-combobox>
+                </div>
+            </div>
+
+
+            <div class="slds-grid slds-gutters">
+
+                <div class="slds-col">
+                    <lightning-card icon-name="custom:custom76" title={rotulos.TituloUnidades} variant="narrow">
+                        <div class="slds-card__body slds-card__body_inner slds-box">
+                            <div class="slds-grid" style="position: relative;">
+                                <button class="slds-button slds-button_icon slds-button__icon-border" title="Filtros"
+                                    onclick={exibirFiltros}>
+                                    <lightning-icon icon-name="utility:rows" size="small"></lightning-icon>
+                                    <span class="slds-assistive-text">Filtros</span>
+                                </button>
+
+                                <lightning-input name="pesquisaUnidades" label={rotulos.TituloUnidades} type="search"
+                                    variant="label-hidden" placeholder="Procure por unidades" onchange={handleSearch}
+                                    class="slds-col"></lightning-input>
+
+
+                                <!-- filtros -->
+                                <div class="slds-panel slds-hide panel slds-nubbin_top">
+                                    <div class="slds-panel__body teste">
+                                        <lightning-card icon-name="standard:filter" title={rotulos.TituloFiltros}
+                                            variant="narrow">
+                                            <div class="slds-card_boundary">
+                                                <div class="slds-card__body slds-card__body_inner">
+                                                    <span class="slds-text-title_bold">{rotulos.TituloSituacao}</span>
+                                                    <div class="slds-card__body">
+                                                        <ul>
+                                                            <li class="slds-listbox__item slds-m-top_small">
+                                                                <lightning-badge variant="base" label="Reservada"
+                                                                    onclick={handleClick}
+                                                                    class="slds-text-color_default slds-badge reservada badge">
+                                                                </lightning-badge>
+                                                                <lightning-badge title="Unidades"
+                                                                    class="slds-badge_lightest"
+                                                                    label={qtdUnidadesReservada}
+                                                                    variant="focus"></lightning-badge>
+                                                            </li>
+                                                            <li class="slds-listbox__item slds-m-top_small">
+                                                                <lightning-badge variant="base" label="Pré-Escritura"
+                                                                    onclick={handleClick}
+                                                                    class="slds-text-color_default slds-badge preEscritura badge">
+                                                                </lightning-badge>
+                                                                <lightning-badge title="Unidades"
+                                                                    class="slds-badge_lightest"
+                                                                    label={qtdUnidadesPreEscritura}
+                                                                    variant="focus"></lightning-badge>
+                                                            </li>
+                                                            <li class="slds-listbox__item slds-m-top_small">
+                                                                <lightning-badge variant="base" label="Em Negociação"
+                                                                    onclick={handleClick}
+                                                                    class="slds-text-color_default slds-badge emNegociacao badge">
+                                                                </lightning-badge>
+                                                                <lightning-badge title="Unidades"
+                                                                    class="slds-badge_lightest"
+                                                                    label={qtdUnidadesEmNegociacao}
+                                                                    variant="focus"></lightning-badge>
+                                                            </li>
+                                                            <li class="slds-listbox__item slds-m-top_small">
+                                                                <lightning-badge variant="base" label="Alugada"
+                                                                    onclick={handleClick}
+                                                                    class="slds-text-color_default slds-badge alugada badge">
+                                                                </lightning-badge>
+                                                                <lightning-badge title="Unidades"
+                                                                    class="slds-badge_lightest"
+                                                                    label={qtdUnidadesAlugada}
+                                                                    variant="focus"></lightning-badge>
+                                                            </li>
+                                                            <li class="slds-listbox__item slds-m-top_small">
+                                                                <lightning-badge variant="base"
+                                                                    label="Assinatura de contrato" onclick={handleClick}
+                                                                    class="slds-text-color_default slds-badge assinaturaDeContrato badge">
+                                                                </lightning-badge>
+
+                                                                <lightning-badge title="Unidades"
+                                                                    class="slds-badge_lightest"
+                                                                    label={qtdUnidadesAssinaturaDeContrato}
+                                                                    variant="focus"></lightning-badge>
+                                                            </li>
+
+
+                                                            <li class="slds-listbox__item slds-m-top_small">
+                                                                <lightning-badge variant="base" label="Vendida"
+                                                                    onclick={handleClick}
+                                                                    class="slds-text-color_default slds-badge vendida badge">
+                                                                </lightning-badge>
+
+                                                                <lightning-badge title="Unidades"
+                                                                    class="slds-badge_lightest"
+                                                                    label={qtdUnidadesVendida}
+                                                                    variant="focus"></lightning-badge>
+                                                            </li>
+                                                            <li class="slds-listbox__item slds-m-top_small">
+                                                                <lightning-badge variant="base" label="Disponível"
+                                                                    onclick={handleClick}
+                                                                    class="slds-text-color_default slds-badge disponivel badge">
+                                                                </lightning-badge>
+
+                                                                <lightning-badge title="Unidades"
+                                                                    class="slds-badge_lightest"
+                                                                    label={qtdUnidadesDisponivel}
+                                                                    variant="focus"></lightning-badge>
+                                                            </li>
+                                                            <li class="slds-listbox__item slds-m-top_small">
+                                                                <lightning-badge variant="base" label="Bloqueada"
+                                                                    onclick={handleClick}
+                                                                    class="slds-text-color_default slds-badge bloqueada badge">
+                                                                </lightning-badge>
+                                                                <lightning-badge title="Unidades"
+                                                                    class="slds-badge_lightest"
+                                                                    label={qtdUnidadesBloqueada}
+                                                                    variant="focus"></lightning-badge>
+                                                            </li>
+                                                            <li class="slds-listbox__item slds-m-top_small">
+                                                                <lightning-badge variant="base" label="Permutada"
+                                                                    onclick={handleClick}
+                                                                    class="slds-text-color_default slds-badge permuta badge">
+                                                                </lightning-badge>
+                                                                <lightning-badge title="Unidades"
+                                                                    class="slds-badge_lightest"
+                                                                    label={qtdUnidadesPermutada}
+                                                                    variant="focus"></lightning-badge>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-card__body slds-card__body_inner">
+                                                    <span
+                                                        class="slds-text-title_bold">{rotulos.TituloValorImovel}</span>
+                                                    <div class="slds-grid slds-gutters">
+                                                        <div class="slds-col slds-size_1-of-2">
+                                                            <lightning-input label={rotulos.TituloMinimo} class="minMax"
+                                                                placeholder={rotulos.PlaceholderZeroReais}
+                                                                type="currency" value={minimo.valorImovel} min="0"
+                                                                step="2"
+                                                                onchange={atualizarLimiteInferior}></lightning-input>
+                                                        </div>
+                                                        <div class="slds-col slds-size_1-of-2">
+                                                            <lightning-input label={rotulos.TituloMaximo} class="minMax"
+                                                                placeholder={rotulos.PlaceholderZeroReais}
+                                                                type="currency" value={maximo.valorImovel} min="0"
+                                                                step="2" formatter="currency"
+                                                                onchange={atualizarLimiteSuperior}></lightning-input>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-card__body slds-card__body_inner">
+                                                    <span
+                                                        class="slds-text-title_bold">{rotulos.TituloAreaTerreno}</span>
+                                                    <div class="slds-grid slds-gutters">
+                                                        <div class="slds-col slds-size_1-of-2">
+                                                            <lightning-input label={rotulos.TituloMinimo} class="minMax"
+                                                                placeholder={rotulos.PlaceholderZeroMetrosQuadrados}
+                                                                type="number" value={minimo.areaTerreno} min="0"
+                                                                step="2"
+                                                                onchange={atualizarLimiteInferiorArea}></lightning-input>
+                                                        </div>
+                                                        <div class="slds-col slds-size_1-of-2">
+                                                            <lightning-input label={rotulos.TituloMaximo} class="minMax"
+                                                                placeholder={rotulos.PlaceholderZeroMetrosQuadrados}
+                                                                type="number" value={maximo.areaTerreno} min="0"
+                                                                step="2"
+                                                                onchange={atualizarLimiteSuperiorArea}></lightning-input>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-card__body slds-card__body_inner limparFiltrosButton">
+
+                                                    <lightning-button icon-name="utility:clear" icon-position="right"
+                                                        variant="destructive" label="Limpar filtros"
+                                                        onclick={limparFiltros}></lightning-button>
+
+                                                </div>
+                                            </div>
+                                        </lightning-card>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="slds-text-title slds-text-title_bold slds-m-top_medium"><span>Exibindo
+                                    {qtdUnidades} unidades de {qtdUnidadesTotal}</span></div>
+
+
+                            <div class="slds-card__body slds-card__body_inner slds-p-around_none">
+                                <ul class="slds-grid slds-wrap">
+                                    <template for:each={unidadesParaExibir} for:item="item">
+                                        <li role="presentation" key={item.id}
+                                            class="slds-col slds-size_1-of-8 slds-p-around_small li-card">
+                                            <c-espelho-vendas-card data-id={item.id}
+                                                empreendimento={item.empreendimento} andar={item.andar} tipo={item.tipo}
+                                                area={item.area} valor={item.valorDaUnidade} unidade={item.unidade}
+                                                status={item.status} link={item.link}></c-espelho-vendas-card>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </lightning-card>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

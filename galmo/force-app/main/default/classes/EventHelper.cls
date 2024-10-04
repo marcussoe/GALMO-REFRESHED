@@ -1,4 +1,24 @@
-public class EventHelper {
+public class EventHelper {       
+    public static void validateEventDate(List<Event> events){
+        Set<Id> whoIds = new Set<Id>();
+    
+        for (Event iEvent : events) {
+            whoIds.add(iEvent.WhoId);
+        }
+        
+        Map<Id, Lead> leadMap = new Map<Id, Lead>([SELECT Id, ConfiguracaoDeSLA__r.SlaTime__c FROM Lead WHERE Id IN :whoIds]);
+        
+        for (Event iEvent : events) {
+            if (iEvent.ActivityDate > Datetime.now()) {
+                Lead leadRecord = leadMap.get(iEvent.WhoId);
+                if (leadRecord != null && leadRecord.ConfiguracaoDeSLA__r != null && leadRecord.ConfiguracaoDeSLA__r.SlaTime__c != null) {
+                    leadRecord.DataHoraVencimento__c = DateTime.newInstance(iEvent.ActivityDate.year(), iEvent.ActivityDate.month(), iEvent.ActivityDate.day()).addMinutes(Integer.valueOf(leadRecord.ConfiguracaoDeSLA__r.SlaTime__c));
+                }
+            }
+          }
+    }
+    
+    
     public static void validateLeadStatus(List<Event> eventList) {
         Map<Id, Lead> leadsMappedByEventId = getScheduledLeadsMap(eventList);
 
@@ -8,7 +28,7 @@ public class EventHelper {
                 
                 if(ld != null){
                     if(ld.Status == 'Agendamento de Visita'){
-                        event.EmpreendimentoInteresse__c = ld.EmpreendimentoInteresse__c;
+                        event.EmpreendimentoInteresseAtividade__c = ld.EmpreendimentoInteresseLead__c;
                     }else{
                         event.addError('O status do lead precisa ser Agendamento de Visita');
                     }
@@ -16,27 +36,6 @@ public class EventHelper {
             }                
         }
        
-    }
-    
-    public static void validate(List<Event> listaEvento){
-        
-        Set<Id> whoIds = new Set<Id>();
-        for (Event e : listaEvento) {
-            whoIds.add(e.WhoId);
-        }
-
-        Map<Id, Lead> leads = new Map<Id, Lead>([SELECT Id, EmpreendimentoInteresse__r.Name FROM Lead WHERE Id IN :whoIds]);
-    
-        for (Event eventos : listaEvento) {
-            system.debug('entrei no for');
-            if (eventos.WhoId != null && leads.containsKey(eventos.WhoId)) {
-                system.debug('entrei no if');
-                eventos.Location = leads.get(eventos.WhoId).EmpreendimentoInteresse__r.Name;
-                system.debug('atualizei o evento');
-            } else if (eventos.Location == null || String.isBlank(eventos.Location)) {
-                eventos.Location = null;
-            }
-        }
     }
 
     public static void validateEventStatus(List<Event> events) {
@@ -50,9 +49,7 @@ public class EventHelper {
                 eventosVisita.add(iEvent);
             }
         }
-        
         Map<Id, Lead> mapLeads = getScheduledLeadsMap(eventosVisita);
-
 
         if (!idLeads.isEmpty()) {
             List<Lead> leads = new List<Lead>();
@@ -60,17 +57,11 @@ public class EventHelper {
             for (Event event : eventosVisita) {
                 Lead lead = mapLeads.get(event.Id);
                 if (lead != null) {
-                    if(!String.isBlank(event.Motivo_da_visita_n_o_realizada__c) && (event.Status_do_Compromisso__c == 'Realizada com Sucesso' || event.Status_do_Compromisso__c == 'Agendado')){
-                        event.addError('Não é necessário informar o Motivo da visita não realizada quando o Status do Compromisso é Realizada com Sucesso ou Agendado');
-                    }
-
-                    if (event.Status_do_Compromisso__c == 'Realizada com Sucesso') {
+                    if (lead.Status == 'Agendamento de Visita' && event.StatusCompromisso__c == 'Realizada com Sucesso') {
                         lead.Status = 'Qualificação';
                         leads.add(lead);
-                    }
-
-                    if (event.Status_do_Compromisso__c == 'Não realizada') { 
-                        if (String.isBlank(event.Motivo_da_visita_n_o_realizada__c)) {
+                    } else if (lead.Status == 'Agendamento de Visita' && event.StatusCompromisso__c == 'Não realizada') { 
+                        if (String.isBlank(event.MotivoVisitaNaoRealizada__c)) {
                             event.addError('Informar o motivo da visita não realizada. Escolha uma opção na lista, por favor.');
                         } else {
                             lead.Status = 'Contato Realizado';
@@ -84,15 +75,10 @@ public class EventHelper {
             }
         }
     }
-    
-    public static void validateEventDate(List<Event> events){
-        LeadSLAHelper.validateEventDate(events);
-    }
-
 
     private static Map<Id, Lead> getScheduledLeadsMap(List<Event> events){
         List<Lead> scheduledLeads = LeadDA.getLeadScheduledById(
-            new Set<String>{'Id', 'Status', 'EmpreendimentoInteresse__c' },
+            new Set<String>{'Id', 'Status', 'EmpreendimentoInteresseLead__c' },
             ObjectHelper.getLookUpId(events, 'WhoId')
         );
 
@@ -108,4 +94,7 @@ public class EventHelper {
         return leadsMappedByEventId;
     }
 
+  
+    
+       
 }

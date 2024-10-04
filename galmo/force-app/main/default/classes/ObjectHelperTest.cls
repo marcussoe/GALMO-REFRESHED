@@ -7,7 +7,7 @@ private class ObjectHelperTest {
     }
 
     private static void doMakeData(){
-        Empreendimento__c empreendimento = new Empreendimento__c();
+        Enterprise__c empreendimento = new Enterprise__c();
         empreendimento.Name = 'Empreendimento de Teste';
         insert empreendimento;
 
@@ -17,20 +17,20 @@ private class ObjectHelperTest {
                 LastName = 'Zika',
                 Company = 'Chave',
                 Status = 'New',
-                EmpreendimentoInteresse__c = empreendimento.Id
+                EmpreendimentoInteresseLead__c = empreendimento.Id
             );
     }
 
     @isTest
     private static void getLookUpId(){
-        Empreendimento__c empreendimento = [SELECT Id FROM Empreendimento__c LIMIT 1].get(0);
-        List<Lead> leads = [SELECT Id, EmpreendimentoInteresse__c FROM Lead];
+        Enterprise__c empreendimento = [SELECT Id FROM Enterprise__c LIMIT 1].get(0);
+        List<Lead> leads = [SELECT Id, EmpreendimentoInteresseLead__c FROM Lead];
 
         Set<Id> empreendimentosId = new Set<Id>();
 
         Test.startTest();
 
-        empreendimentosId = ObjectHelper.getLookUpId(leads, 'EmpreendimentoInteresse__c');
+        empreendimentosId = ObjectHelper.getLookUpId(leads, 'InterestedEnterprise__c');
 
         Test.stopTest();
 

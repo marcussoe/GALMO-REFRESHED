@@ -13,6 +13,10 @@ public without sharing class DistribuirLeadsService {
 
         List<Lead> leadsParaDistribuir = LeadSelector.obterLeadsParaDistribuir();
 
+        System.debug('participantesAtualizados ' + participantesAtualizados);
+        System.debug('participantesOnline' + participantesOnline);
+
+
         if(System.isFuture()) { 
             TriggerHandler.bypass('ParticipanteRoletaTriggerHandler');
 
@@ -35,6 +39,7 @@ public without sharing class DistribuirLeadsService {
      */
     private static List<ParticipanteRoleta__c> obterParticipantesOnline(List<ParticipanteRoleta__c> participantes) {
         List<ParticipanteRoleta__c> participantesOnline = new List<ParticipanteRoleta__c>();
+
         for(ParticipanteRoleta__c participante : participantes) {
             if(participante.Situacao__c != 'Online') { continue; }
             if(participante.CargaRestante__c <= 0) { continue; }
@@ -94,6 +99,8 @@ public without sharing class DistribuirLeadsService {
 
         if(roletasLeads.isEmpty()) { return; }
 
+        System.debug(leadsPorCanalAtendimento);
+        System.debug(roletasLeads);
         List<Lead> leadsParaAtualizar = new List<Lead>();
 
         leadsParaAtualizar.addAll(distribuirLeads(leads, roletasLeads));
@@ -102,24 +109,6 @@ public without sharing class DistribuirLeadsService {
         if(leadsParaAtualizar.isEmpty()) { return; }
 
         Database.update(leadsParaAtualizar);
-
-        List<OmnichannelRefresh__e> omniRefresh = new List<OmnichannelRefresh__e>();
-        OmnichannelRefresh__e evt = new OmnichannelRefresh__e();
-        EventBus.publish(omniRefresh);
-
-        // Set<Id> membrosId = new Set<Id>();
-        // for(Lead ld : leadsParaAtualizar){
-        //     membrosId.add(ld.Corretor__c);
-        // }
-        
-        // Set<String> setUsersToNotify = new Set<String>();
-        // for(MembroEquipe__c member : MembroEquipeSelector.obterMembrosPorId(membrosId)){
-        //     setUsersToNotify.add(member.Usuario__c);
-        // }
-        
-        // if(!setUsersToNotify.isEmpty()){
-        //     notifyUsers(setUsersToNotify, '');
-        // }
     }
 
     /**
@@ -201,6 +190,7 @@ public without sharing class DistribuirLeadsService {
      */
     private static List<ParticipanteRoleta__c> reordenarParticipantesRoletasLeads(Map<Id, List<ParticipanteRoleta__c>> participantesPorIdRoleta) {
         List<ParticipanteRoleta__c> participantes = new List<ParticipanteRoleta__c>();
+        System.debug('reordenar ' + participantes);
         for(Id idRoletaLeads : participantesPorIdRoleta.keySet()) {
             participantes.addAll(reordenarParticipantesRoletasLeads(participantesPorIdRoleta.get(idRoletaLeads)));
         }
@@ -279,26 +269,5 @@ public without sharing class DistribuirLeadsService {
         }
 
         return leadsParaDistribuir;
-    }
-
-    public static void notifyUsers(Set<String> recipientsIds, String targetId) {
-
-        CustomNotificationType notificationType = 
-            [SELECT Id, DeveloperName 
-             FROM CustomNotificationType 
-             WHERE DeveloperName='NotificacaoPersonalizada'];
-        
-        Messaging.CustomNotification notification = new Messaging.CustomNotification();
-        notification.setTitle('Você Recebeu um novo Lead');
-        notification.setBody('Favor abrir o omnichannel para verificar o atendimento');
-        notification.setNotificationTypeId(notificationType.Id);
-        notification.setTargetId(targetId);
-        
-        try {
-            notification.send(recipientsIds);
-        }
-        catch (Exception e) {
-            System.debug('Problem sending notification: ' + e.getMessage());
-        }
     }
 }

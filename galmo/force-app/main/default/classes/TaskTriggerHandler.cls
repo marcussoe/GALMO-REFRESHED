@@ -8,8 +8,8 @@ public with sharing class TaskTriggerHandler extends TriggerHandler {
         TaskHelper.validateTaskDate(Trigger.new);
         LeadHelper.validateTaskCreation(Trigger.new);
     }
-    
-    public override void afterUpdate(){
+
+    public override void afterUpdate() {
         LeadHelper.updateLeadStatusOnTaskCompletion(Trigger.new, Trigger.oldMap);
     }
 }

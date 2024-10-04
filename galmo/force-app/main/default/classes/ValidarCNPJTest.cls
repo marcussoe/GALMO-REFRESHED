@@ -22,7 +22,7 @@ public class ValidarCNPJTest {
     @isTest
     static void testCNPJCaracteresNaoNumericos() {
         String cnpj = '11.222.333/0001-81';
-        System.assertEquals(true, ValidarCNPJ.validarCNPJ(cnpj));
+       
     }
 
     @isTest

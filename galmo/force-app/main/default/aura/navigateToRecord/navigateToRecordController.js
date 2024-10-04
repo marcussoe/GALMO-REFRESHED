@@ -12,6 +12,6 @@
         });
         
         // Open the record
-        window.location = "/" + recordId; 
+        window.location = "/" + recordId;
     }
 })

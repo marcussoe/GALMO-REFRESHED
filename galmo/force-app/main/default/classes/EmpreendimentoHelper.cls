@@ -1,7 +1,9 @@
 public with sharing class EmpreendimentoHelper {
 
    public static Boolean validarCNPJ(String cnpj) {
-    
+            if(cnpj == null){
+                return false;
+            }
             cnpj= cnpj.replaceAll('[^0-9]', '');
 
     

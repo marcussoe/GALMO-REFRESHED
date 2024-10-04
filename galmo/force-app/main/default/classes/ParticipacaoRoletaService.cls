@@ -46,43 +46,11 @@ public without sharing class ParticipacaoRoletaService {
      * da situação do usuário.
      */
     private static void atualizarParticipantes(List<ParticipanteRoleta__c> participantes) {
-        Map<Id,Id> mapParticipanteRoleta = new Map<Id,Id>(); 
-        Set<Id> roletaIds =  new Set<Id>();
-
         for(ParticipanteRoleta__c participante : participantes) {
             atualizarSituacaoParticipante(participante, participante.MembroEquipe__r.Usuario__r);
-
-            if(participante.MembroEquipe__r.Usuario__r.Situacao__c.equalsIgnoreCase('Online')){
-                mapParticipanteRoleta.put(participante.Id, participante.RoletaLeads__c);
-                roletaIds.add(participante.RoletaLeads__c);
-            }
         }
 
-        Map<Id, List<ParticipanteRoleta__c>> mapRoletaParticipanteList = new Map<Id, List<ParticipanteRoleta__c>>(); 
-        for(ParticipanteRoleta__c participanteRoleta : ParticipanteRoletaSelector.obterParticipantesPorIdsRoleta(roletaIds)){
-            if(mapRoletaParticipanteList.containsKey(participanteRoleta.RoletaLeads__c)){
-                mapRoletaParticipanteList.get(participanteRoleta.RoletaLeads__c).add(participanteRoleta);
-            } else {
-                mapRoletaParticipanteList.put(participanteRoleta.RoletaLeads__c, new List<ParticipanteRoleta__c>{participanteRoleta});
-            }
-        }
-
-        List<ParticipanteRoleta__c> participantesToDel =  new List<ParticipanteRoleta__c>();
-        List<ParticipanteRoleta__c> participantesToUpd =  new List<ParticipanteRoleta__c>();
-
-        for(ParticipanteRoleta__c participanteDel : participantes) {
-            if(participanteDel.MembroEquipe__r.Usuario__r.Situacao__c.equalsIgnoreCase('offline')){
-                participantesToDel.add(participanteDel);
-            } else if(participanteDel.MembroEquipe__r.Usuario__r.Situacao__c.equalsIgnoreCase('online') && mapRoletaParticipanteList.containsKey(participanteDel.RoletaLeads__c)){
-                participanteDel.Posicao__c = mapRoletaParticipanteList.get(participanteDel.RoletaLeads__c).size();
-                participantesToUpd.add(participanteDel);
-            } else {
-                participantesToUpd.add(participanteDel);
-            }
-        }
-
-        Database.update(participantesToUpd);
-        Database.delete(participantesToDel);
+        Database.update(participantes);
     }
 
     private static void criarParticipantes(List<MembroEquipe__c> membros) {
@@ -113,7 +81,7 @@ public without sharing class ParticipacaoRoletaService {
 
         Database.insert(participantes);
     }
-    
+
     private static List<ParticipanteRoleta__c> obterParticipantesCriados(MembroEquipe__c membro, List<RoletaLeads__c> roletasLeads) {
         List<ParticipanteRoleta__c> participantesRoletaCriados = new List<ParticipanteRoleta__c>();
         Set<id> idRoleta = new Set<id>();
@@ -138,7 +106,6 @@ public without sharing class ParticipacaoRoletaService {
 
         return participantesRoletaCriados;
     }
-
 
     /**
      * Método responsável pela obtenção de participante da roleta com campos de entrada
@@ -168,11 +135,9 @@ public without sharing class ParticipacaoRoletaService {
                 participante.Saida__c = null;
                 participante.TempoIndisponibilidade__c = obterTempoIndisponibilidadeEmMinutos(participante);
                 participante.RegistroIndisponibilidade__c = null;
-
             }
             when 'Indisponível' {
                 participante.RegistroIndisponibilidade__c = System.now();
-                participante.Posicao__c = null;
             }
             when 'Offline' {
                 participante.Saida__c = System.now();

@@ -1,6 +1,10 @@
 public with sharing class ContatoHelper{
 
      public static Boolean validarCPF(String cpf) {
+        if(cpf == null){
+            return false;
+        }
+
         cpf = cpf.replaceAll('[^0-9]', '');
     
         if (cpf.length() == 11) {

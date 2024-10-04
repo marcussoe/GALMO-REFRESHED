@@ -6,7 +6,11 @@ public class ValidarCNPJFromTriggerTest {
         Lead lead = new Lead();
         lead.FirstName = 'Test';
         lead.LastName = 'Lead';
-        lead.CNPJ__c = '11084433000199';
+        lead.CNPJ__c = '11084433000199'; 
+        lead.LeadSource = 'Chat';
+        lead.MobilePhone = '1145685479';
+        lead.Email = 'testisamelsanti@example.com'; 
+        lead.CanalAtendimento__c = 'Chat'; 
         insert Lead;
         System.assertNotEquals(null, lead.Id);
     }
@@ -16,7 +20,7 @@ public class ValidarCNPJFromTriggerTest {
         Lead lead = new Lead();
         lead.FirstName = 'Test';
         lead.LastName = 'Lead';
-        lead.CNPJ__c = '1234567890123';
+        lead.CNPJ__c = '1234567890123'; // CPF inválido
         Test.startTest();
         try {
             insert lead;

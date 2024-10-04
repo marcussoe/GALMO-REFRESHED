@@ -1,21 +1,22 @@
 public class EmpreendimentoSelector {
-    public static List<Empreendimento__c> getEmpreendimentoRecords() {
+    public static List<Enterprise__c> getEmpreendimentoRecords() {
         return [
             SELECT 
                 Name
-                // EnderecoDoEmpreendimento__City__s, 
-                // EnderecoDoEmpreendimento__StateCode__s, 
-                // Regiao__c 
-            FROM Empreendimento__c 
+            FROM Enterprise__c 
             ORDER BY Name
         ];
     }
 
-    public static Empreendimento__c obterNomeEmpreendimentoById(Id idEmpreendimento) {
+    public static List<Enterprise__c> obterEmpreendimentosPorIds(Set<Id> idsEmpreendimentos) {
+        return [SELECT Name, ChaveExterna__c FROM Enterprise__c WHERE Id IN :idsEmpreendimentos];
+    }
+
+    public static Enterprise__c obterNomeEmpreendimentoById(Id idEmpreendimento) {
         return [
             SELECT 
                 Name
-            FROM Empreendimento__c 
+            FROM Enterprise__c 
             WHERE Id = :idEmpreendimento
         ];
     }

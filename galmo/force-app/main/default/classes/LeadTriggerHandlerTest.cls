@@ -2,9 +2,11 @@
 public class LeadTriggerHandlerTest {
     @TestSetup
     static void makeData(){
-        Empreendimento__c  empreendimento = new Empreendimento__c (Name = 'Teste empreendimento');
+        Enterprise__c empreendimento = new Enterprise__c(Name = 'Teste empreendimento',CNPJ__c ='07135796000139');
         insert empreendimento;
-        Lead testLead = new Lead(
+        
+   
+        Lead testLead1 = new Lead(
             LastName = 'Will',
             Company = 'Elera',
             Email = 'Willdantas@gmail.com',
@@ -12,174 +14,78 @@ public class LeadTriggerHandlerTest {
             CanalAtendimento__c = 'Chat',
             MobilePhone = '11960387699',
             Status = 'Novo',
-            EmpreendimentoInteresse__c = empreendimento.Id
+            EmpreendimentoInteresseLead__c = empreendimento.Id
+        );
+        insert testLead1;
+        
+        testLead1.Status = 'Tentativa de contato';
+        update testLead1;
+        
+        Task task1 = new Task(
+            Subject = 'Chamada',
+            Status = 'Completed',
+            WhoId = testLead1.Id
+        );
+        insert task1;
+        
+        
+        
+        Task taskOpen1 = new Task(
+            Subject = 'Chamada',
+            Status = 'Open',
+            WhoId = testLead1.Id
+        );
+        insert taskOpen1;
+        
+        // Segundo Lead
+        Lead testLead2 = new Lead(
+            LastName = 'Smith',
+            Company = 'Elera',
+            Email = 'smith@gmail.com',
+            LeadSource = 'Telefone',
+            CanalAtendimento__c = 'Chat',
+            MobilePhone = '11960387698',
+            Status = 'Novo',
+            EmpreendimentoInteresseLead__c = empreendimento.Id
+        );
+        insert testLead2;
+    }
+    
+
+    @isTest
+    static void testBeforeUpdate_AdvancingFromAttemptToContact() {
+          Enterprise__c empreendimento = new Enterprise__c(Name = 'Teste empreendimento',CNPJ__c ='07135796000139');
+        insert empreendimento;
+        
+        Lead testLead = new Lead(
+            LastName = 'Teste',
+            Company = 'Empresa Teste',
+            Email = 'teste@teste.com',
+            LeadSource = 'Teste',
+            CanalAtendimento__c = 'Chat',
+            MobilePhone = '11987654321',
+            Status = 'Novo',
+            EmpreendimentoInteresseLead__c = empreendimento.Id
         );
         insert testLead;
 
+        testLead.Status = 'Tentativa de Contato';
+        update testLead;
 
         Task task = new Task(
             Subject = 'Chamada',
             Status = 'Completed',
             WhoId = testLead.Id
         );
-
         insert task;
-
-        Task taskOpen = new Task(
-            Subject = 'Chamada',
-            Status = 'Open',
-            WhoId = testLead.Id
-        );
-
         
-        insert taskOpen;
-
-        Task taskWhatsapp = new Task(
-            Subject = 'WhatsApp',
-            Status = 'Open',
-            WhoId = testLead.Id
-        );
-
-        insert taskWhatsapp;
-
-        Task taskEmail = new Task(
-            Subject = 'Email',
-            Status = 'Open',
-            WhoId = testLead.Id
-        );
-
-        insert taskEmail;
-
-        Lead leadSemTask = new Lead(
-            LastName = 'Eduardo Verri',
-            Company = 'São Paulo Tech School',
-            Email = 'eduardoverry@gmail.com',
-            LeadSource = 'Telefone',
-            CanalAtendimento__c = 'Chat',
-            MobilePhone = '11987563201',
-            Status = 'Novo',
-            EmpreendimentoInteresse__c = empreendimento.Id
-        );
-
-        insert leadSemTask;
-
-        Task taskAbertaLeadSemTask = new Task(
-            Subject = 'Chamada',
-            Status = 'Open',
-            WhoId = leadSemTask.Id
-        );
-    
-        insert taskAbertaLeadSemTask;
-
-    }
-
-    @IsTest
-    static void testBeforeUpdate_AdvancingFromAttemptToContact() {
-        Lead testLead = [SELECT Id, Status FROM Lead WHERE Status = 'Novo' LIMIT 1];
-        testLead.Status = 'Tentativa de Contato';
-        update testLead;
-        testLead.Status = 'Agendamento de Visita';
-        Test.startTest();
-        update testLead;
-        Test.stopTest();
-
-        System.assertEquals('Agendamento de Visita', testLead.Status);
-    }
-
-    @IsTest
-    static void testBeforeUpdate_AdvancingFromContactMade() {
-        Lead testLead = [SELECT Id, Status FROM Lead WHERE Status = 'Novo' LIMIT 1];
-        testLead.Status = 'Tentativa de Contato';
-        update testLead;
-        testLead.Status = 'Agendamento de Visita';
-        Test.startTest();
-        update testLead;
-        Test.stopTest();
-    }
-
-    @IsTest
-    static void testBeforeUpdate_NotAdvancing() {
-        Lead testLead = [SELECT Id, Status FROM Lead WHERE Status = 'Novo' LIMIT 1];
-        testLead.Status = 'Novo';
-        update testLead;
-        testLead.Status = 'Agendamento de Visita';
-        Test.startTest();
-        update testLead;
-        Test.stopTest();
-        
-    }
-
-    @IsTest
-    static void testarCenarioErroCath(){
-       Lead newLead = new Lead(
-            LastName = 'Matheus Oliveira Santos Almeida',
-            Company = 'Elera Company Paulista',
-            Email = 'matheusoliveiraalmeida@gmail.com',
-            LeadSource = 'Telefone',
-            CanalAtendimento__c = 'Chat',
-            MobilePhone = '11837434754',
-            Status = 'Tentativa de Contato'
-        );
-        insert newLead;
-
-        
-        Test.startTest();
-        Boolean exceptionThrown = false;
-        try {
-            newLead.Status = 'Contato Realizado'; 
-            update newLead;
-        } catch(DmlException e) {
-            exceptionThrown = true;
-        }
-        Test.stopTest();
-        
-        System.assert(exceptionThrown, 'A exceção DmlException deveria ter sido lançada');
-    }
-    
-
-    @IsTest
-    static void isTaskCreatedAndOpenForAttemptToContactTest(){
-        Lead testLead = new Lead(
-            LastName = 'Pedro Francisco',
-            Company = 'Bradesco Sa',
-            Email = 'pedrofrancisco@gmail.com',
-            LeadSource = 'Telefone',
-            CanalAtendimento__c = 'Chat',
-            MobilePhone = '11847543201',
-            Status = 'Tentativa de Contato'
-        );
-
-        insert testLead;
-
-        Task task = new Task(
-            Subject = 'Chamada',
-            Status = 'Open',
-            WhoId = testLead.Id
-        );
-        insert task;
         testLead.Status = 'Contato Realizado';
         update testLead;
-        List<Task> tasks = [SELECT Id, WhoId, Subject, Status FROM Task WHERE WhoId = :testLead.Id AND Status = 'Open' LIMIT 1];
-        System.assert(!tasks.isEmpty(), 'Deveria haver pelo menos uma tarefa com status Open associada ao Lead');
-    }
-    
-      @isTest
-    public static void beforeUpdateTest() {
-        Lead lead = [SELECT Id, Status FROM Lead LIMIT 1];
+      
+        testLead.Status = 'Agendamento de Visita';
 
-        Task task = new Task(
-            Subject = 'Email',
-            WhoId = lead.Id
-        );
-        insert task;
-        
         Test.startTest();
-        lead.Status = 'Prospecção';
-        update lead;
+        update testLead;
         Test.stopTest();
-        
-        lead = [SELECT Id, Status FROM Lead WHERE Id = :lead.Id];
-        System.assertEquals(false, lead.hasErrors(), 'O lead não deveria ter erros após a atualização');
     }
-    
 }

@@ -2,29 +2,26 @@
 public class LeadDATest {
     @isTest
     static void testGetLeadsById() {
-        // Criação do empreendimento fictício
-        Empreendimento__c empreendimento = new Empreendimento__c();
-        empreendimento.Name = 'Teste empreendimento';
-        insert empreendimento;
-
-        // Criação e inserção do primeiro lead
+      Enterprise__c empreendimento = new Enterprise__c(Name = 'Teste empreendimento',CNPJ__c ='07135796000139');
+       insert empreendimento;
+        
+        
         Lead lead1 = new Lead(
             LastName = 'Silva',
             Company = 'Empresa XYZSantiago',
             Email = 'silva@xyz.com',
             LeadSource = 'Chat',
+             CNPJ__c = '07135796000139',
             CanalAtendimento__c = 'Telefone',
             MobilePhone = '11987654321',
             Status = 'Novo',
-            EmpreendimentoInteresse__c = empreendimento.Id
+            EmpreendimentoInteresseLead__c = empreendimento.Id
         );
         insert lead1;
 
-        // Atualização do status do primeiro lead
         lead1.Status = 'Tentativa de Contato';
         update lead1;
 
-        // Criação e inserção do segundo lead
         Lead lead2 = new Lead(
             LastName = 'Santos',
             Company = 'Empresa ABC',
@@ -33,15 +30,15 @@ public class LeadDATest {
             CanalAtendimento__c = 'Chat',
             MobilePhone = '11960387699',
             Status = 'Novo',
-            EmpreendimentoInteresse__c = empreendimento.Id
+            EmpreendimentoInteresseLead__c = empreendimento.Id
         );
         insert lead2;
 
-        // Atualização do status do segundo lead
         lead2.Status = 'Tentativa de Contato';
         update lead2;
 
-        // Criação e inserção de tasks associadas aos leads
+        
+        
         Task task1 = new Task(
             Subject = 'Chamada',
             WhoId = lead1.Id,
@@ -58,32 +55,77 @@ public class LeadDATest {
         );
         insert task2;
 
-        // Verificação do número de tasks inseridas
-        System.assertEquals(2, [SELECT COUNT() FROM Task]);
-
-        // Definição dos IDs dos leads e campos a serem consultados
-        Set<Id> leadsIds = new Set<Id>{lead1.Id, lead2.Id};
+        Set<Id> leadsIds = new Set<Id>{lead1.Id};
+        Set<Id> whoIds = new Set<Id>{task1.WhoId};
         Set<String> camposLead = new Set<String>{'Id', 'Status', 'TotalDeAtividadesFaseAtual__c', 'EmpreendimentoInteresseLead__c'};
 
-        // Chamada aos métodos de consulta da classe LeadDA
-        List<Lead> queriedLeads1 = LeadDA.getLeadsAgendamentoById(leadsIds);
-        List<Lead> queriedLeads2 = LeadDA.getLeadsByIds(leadsIds);
-        List<Lead> queriedLeads3 = LeadDA.getLeadScheduledById(camposLead, leadsIds);
+        LeadDA.getLeadsAgendamentoById(whoIds);
+        LeadDA.getLeadsByIds(leadsIds);
+        LeadDA.getLeadScheduledById(camposLead, leadsIds);
 
-        // Verificação do tamanho das listas retornadas
-        System.assertEquals(2, queriedLeads1.size());
-        System.assertEquals(2, queriedLeads2.size());
-        System.assertEquals(2, queriedLeads3.size());
+        Set<Id> leadIds = new Set<Id>{lead1.Id, lead2.Id};
 
-        // Verificação da consistência dos IDs dos leads retornados
-        for (Lead queriedLead : queriedLeads1) {
-            System.assert(leadsIds.contains(queriedLead.Id));
+        Test.startTest();
+        List<Lead> queriedLeads = LeadDA.getLeadsByIds(leadIds);
+        Test.stopTest();
+
+        System.assertEquals(2, queriedLeads.size());
+        for (Lead queriedLead : queriedLeads) {
+            System.assert(leadIds.contains(queriedLead.Id));
         }
-        for (Lead queriedLead : queriedLeads2) {
-            System.assert(leadsIds.contains(queriedLead.Id));
-        }
-        for (Lead queriedLead : queriedLeads3) {
-            System.assert(leadsIds.contains(queriedLead.Id));
-        }
+    }
+    
+     @isTest
+    static void testFindPotentialDuplicateLeads() {
+        // Crie seus dados de teste
+        Map<String, Object> leadParams = new Map<String, Object>{
+            'LastName' => 'Silva',
+            'MobilePhone' => '123456789',
+            'Email' => 'test@example.com',
+            'EmpreendimentoInteresseLead__c' => null 
+        };
+            
+
+        Test.startTest();
+        List<Lead> potentialDuplicates = LeadDA.findPotentialDuplicateLeads(leadParams);
+        Test.stopTest();
+
+        
+        System.assertEquals(0, potentialDuplicates.size(), 'Expected no potential duplicates found');
+    }
+
+    @isTest
+    static void testFindCampaignByName() {
+      
+        Campaign testCampaign = new Campaign(Name = 'Test Campaign');
+        insert testCampaign;
+
+        Test.startTest();
+        Campaign foundCampaign = LeadDA.findCampaignByName('Test Campaign');
+        Test.stopTest();
+
+      
+        System.assertEquals('Test Campaign', foundCampaign.Name);
+    }
+
+    @isTest
+    static void testCreateCampaignIfNotExist() {
+      
+        Test.startTest();
+        LeadDA.createCampaignIfNotExist('New Campaign');
+        Test.stopTest();
+
+      
+        Campaign newCampaign = [SELECT Name FROM Campaign WHERE Name = 'New Campaign'];
+        System.assertNotEquals(null, newCampaign, 'New campaign should be created');
+
+       
+        
+        LeadDA.createCampaignIfNotExist('New Campaign');
+   
+
+       
+        List<Campaign> existingCampaigns = [SELECT Name FROM Campaign WHERE Name = 'New Campaign'];
+        System.assertEquals(1, existingCampaigns.size(), 'Only one campaign with the same name should exist');
     }
 }

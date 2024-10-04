@@ -1,26 +1,27 @@
 @isTest
 private class TaskDATest {
-
     @isTest
     static void testGetContactTasksByWhoId() {
-        // Criar um registro de Empreendimento__c para associar ao Lead
-        Empreendimento__c empreendimento = new Empreendimento__c(Name = 'Teste empreendimento');
+     
+         Enterprise__c empreendimento = new Enterprise__c(Name = 'Teste empreendimento',CNPJ__c ='07135796000139');
         insert empreendimento;
-        
-        // Criar um Lead de teste associado ao Empreendimento
+
         Lead testLead = new Lead(
             LastName = 'Will',
             Company = 'Elera',
+            CNPJ__c = '07135796000139',
             Email = 'Willdantas@gmail.com',
             LeadSource = 'Telefone',
             CanalAtendimento__c = 'Chat',
             MobilePhone = '11960387699',
             Status = 'Novo',
-            EmpreendimentoInteresse__c = empreendimento.Id
+            EmpreendimentoInteresseLead__c = empreendimento.Id
         );
         insert testLead;
-
-        // Criar uma tarefa associada ao Lead
+        
+        testLead.Status = 'Tentativa de contato';
+        update testLead;
+       
         Task task = new Task(
             Subject = 'Chamada',
             Status = 'Completed',
@@ -28,18 +29,17 @@ private class TaskDATest {
         );
         insert task;
         
-        // Chamar o método a ser testado
+        
+        
         Set<Id> leadsIds = new Set<Id>{testLead.Id};
         List<Task> result = TaskDA.getContactTasksByWhoId(leadsIds, true);
     }
-    
     @isTest
     static void testGetOpenContactTasksByWhoId() {
-        // Criar um registro de Empreendimento__c para associar ao Lead
-        Empreendimento__c empreendimento = new Empreendimento__c(Name = 'Teste empreendimento');
+      
+        Enterprise__c empreendimento = new Enterprise__c(Name = 'Teste empreendimento',CNPJ__c ='07135796000139');
         insert empreendimento;
-        
-        // Criar um Lead de teste associado ao Empreendimento
+      
         Lead testLead = new Lead(
             LastName = 'Ewerton',
             Company = 'São Paulo Tech School',
@@ -48,21 +48,21 @@ private class TaskDATest {
             CanalAtendimento__c = 'Chat',
             MobilePhone = '119847643238',
             Status = 'Novo',
-            EmpreendimentoInteresse__c = empreendimento.Id
+            EmpreendimentoInteresseLead__c = empreendimento.Id
         );
         insert testLead;
-
-        // Criar uma tarefa aberta associada ao Lead
+        
+          testLead.Status = 'Tentativa de contato';
+        update testLead;
+        
+        
         Task task = new Task(
             Subject = 'Chamada',
             Status = 'Open',
             WhoId = testLead.Id
         );
         insert task;
-        
-        // Chamar o método a ser testado
+       
         List<Task> result = TaskDA.getContactTasksByWhoId(new Set<Id>{testLead.Id}, 'Open');
-        
-        
     }
 }

@@ -52,8 +52,11 @@ public class ValidarCPF {
         }
         
         return true;
-        } else {
+       } else {
+       
             return false;
         }
-    }
+       
+      }
+
 }
