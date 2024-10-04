@@ -19,10 +19,6 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>Negociação</fullName>
-        <default>false</default>
-    </values>
-    <values>
         <fullName>Pagadoria</fullName>
         <default>false</default>
     </values>

@@ -23,6 +23,7 @@
         <fullName>Geração de Contrato%2FAnexo Vistoria</fullName>
         <default>false</default>
     </values>
+    
     <values>
         <fullName>Negociação</fullName>
         <default>false</default>
