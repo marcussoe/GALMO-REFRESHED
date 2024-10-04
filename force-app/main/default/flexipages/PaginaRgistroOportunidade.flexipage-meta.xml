@@ -64,16 +64,6 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>documentChecklist</componentName>
-                <identifier>c_documentChecklist</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-187db0da-b592-4862-a2de-89dbcd711629</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
                 <componentName>equipeVendasOpp</componentName>
                 <identifier>c_equipeVendasOpp</identifier>
             </componentInstance>
