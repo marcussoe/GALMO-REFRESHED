@@ -1,26 +1,35 @@
 public class ProdutoDTO {
-    public String idUnidade { get; set; }
-    public String idEmpreendimento { get; set; }
-    public String idBloco { get; set; }
-    public TipoRegistro tipoRegistro { get; set; }
-    public String nomeProduto { get; set; }
-    public String numeroUnidade { get; set; }
-    public Bloco bloco { get; set; }
-    public Integer andar { get; set; }
-    public Decimal valorPorM2 { get; set; }
-    public Integer numeroQuartos { get; set; }
-    public Integer numeroSuites { get; set; }
-    public Integer numeroVagasIncorporadas { get; set; }
-    public Boolean ativo { get; set; }
-    public Decimal metragemPrivativaDescoberta { get; set; }
-    public Decimal metragemPrivativaCoberta { get; set; }
-    public Decimal metragemUnidadePrivativa { get; set; }
-    public Decimal fracaoIdeal { get; set; }
-    public Decimal valorMetro { get; set; }
-    public Decimal coeficiente { get; set; }
-    public Decimal valorBase { get; set; }
-    public Decimal precoLista { get; set; }
-    public Status status { get; set; }
+    public String idUnidade;
+    public String idEmpreendimento;
+    public String idBloco;
+    public TipoRegistro tipoRegistro;
+    public String nomeProduto;
+    public String numeroUnidade;
+    public Empreendimento empreendimento;
+    public Bloco bloco;
+    public Integer andar;
+    public Decimal valorPorM2;
+    public Integer numeroQuartos;
+    public Integer numeroSuites;
+    public Integer numeroVagasIncorporadas;
+    public Boolean ativo;
+    public Decimal metragemPrivativaDescoberta;
+    public Decimal metragemPrivativaCoberta;
+    public Decimal metragemUnidadePrivativa;
+    public Decimal fracaoIdeal;
+    public Decimal valorMetro;
+    public Decimal coeficiente;
+    public Decimal valorBase;
+    public Decimal precoLista;
+    public Status status;
+
+    public class Empreendimento(){
+        String idEmpreendimento;
+        String nomeEmpreendimento;
+        String cnpj;
+        String spe;
+        String statusObra;
+    }
     
     public enum TipoRegistro {
         Apartamento,
@@ -40,13 +49,13 @@ public class ProdutoDTO {
     }
     
     public class Bloco{
-        Integer quantidadeAndares
-        Integer totalUnidades
-        Date dataInício
-        Date dataHabiteSe
-        String CódigoBloco;
+        Integer quantidadeAndares;
+        Integer totalUnidades;
+        Date dataInício;
+        Date dataHabiteSe;
+        String codigoBloco;
         String BplId;
-        String NomeBloco
+        String nomeBloco;
         enum tipoBloco{
             Torre,
             Ala,
@@ -54,11 +63,11 @@ public class ProdutoDTO {
         }
     }
     
-    public static List<ProdutoDTO> parse(String json){
-        return (List<ProdutoDTO>) JSON.deserialize(json, List<ProdutoDTO>.class);
+    public static ProdutoDTO parse(String json){
+        return (ProdutoDTO) JSON.deserialize(json, ProdutoDTO.class);
     }
     
-    public static Product2 toProduct(ProdutoDTO produto){
+    public static Product2 toProduct(){
         Product2 prd = new Product2();
         prd.ExternalId = produto.idUnidade;
         prd.Enterprise__c = produto.idEmpreendimento;
