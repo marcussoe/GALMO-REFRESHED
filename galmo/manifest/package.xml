@@ -43,7 +43,9 @@
 		<members>UnidadeTabelaSelector</members>
 		<members>UnidadeTabelaSelectorTest</members>
 		<members>UnidadeTabelaService</members>
+		<members>UnidadeTabelaServiceTest</members>
 		<members>UnidadeTabelaTriggerHandler</members>
+		<members>UnidadeTabelaTriggerHandlerTest</members>
 		<members>comissaoController</members>
 		<members>comissaoControllerTest</members>
 		<name>ApexClass</name>
