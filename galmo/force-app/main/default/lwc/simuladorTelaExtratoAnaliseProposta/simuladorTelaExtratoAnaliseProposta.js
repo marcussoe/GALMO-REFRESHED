@@ -41,10 +41,50 @@ export default class SimuladorTelaExtratoAnaliseProposta extends LightningElemen
     }
 
     connectedCallback() {
-        console.log("propostas cliente", JSON.stringify(this.propostasCliente))
-        console.log("valroes matriz", JSON.stringify(this.valoresMatriz))
+        let analiseList = [{aprovado: 'utility:success', 
+                            criterio: "Prazo de financiamento", 
+                            formattedValorTabela: "40", 
+                            formattedValorProposta: "37", 
+                            dentroDoLimite: true},
+                            
+                            {aprovado: 'utility:success', 
+                            criterio: "% de Captação a vista", 
+                            formattedValorTabela: "20%", 
+                            formattedValorProposta: "14%", 
+                            dentroDoLimite: true},
 
-        this.analisarPropostaCliente();
+                            {aprovado: 'utility:success', 
+                            criterio: "% de Captação até habitá-se", 
+                            formattedValorTabela: "20%", 
+                            formattedValorProposta: "14%", 
+                            dentroDoLimite: true},
+
+                            {aprovado: 'utility:error', 
+                            criterio: "Valor nominal", 
+                            formattedValorTabela: `R$ 457.400,00`,
+                            formattedValorProposta: `R$ 457.400,00`,
+                            dentroDoLimite: true},
+                        
+                            {aprovado: 'utility:success', 
+                            criterio: "Valor VPL", 
+                            formattedValorTabela: `R$ 425.750,34`,
+                            formattedValorProposta: `R$ 425.750,34`,
+                            dentroDoLimite: true},
+                        
+                            {aprovado: 'utility:success', 
+                            criterio: "% de Captação mensal", 
+                            formattedValorTabela: "0%",
+                            formattedValorProposta: "0¨%",
+                            dentroDoLimite: true},]
+
+
+        this.analisePropostasCliente = analiseList;
+        // this.analisarPropostaCliente();
+    }
+
+
+    formatValor(valor) {
+        return `R$${valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
 
     analisarPropostaCliente() {

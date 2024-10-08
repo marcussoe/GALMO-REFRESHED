@@ -8,40 +8,32 @@
 		<members>CotacaoController</members>
 		<members>CotacaoControllerTest</members>
 		<members>EntradaTabelaPrecoSelector</members>
-		<members>EntradaTabelaPrecoSelectorTest</members>
 		<members>EspelhoVendasController</members>
 		<members>EspelhoVendasControllerTest</members>
 		<members>EspelhoVendasService</members>
 		<members>EspelhoVendasServiceTest</members>
 		<members>ExtratoTabelaService</members>
 		<members>ExtratoTabelaServiceTest</members>
+		<members>ParametrizarCriteriosController</members>
+		<members>ParametrizarCriteriosService</members>
 		<members>ProdutoSelector</members>
-		<members>ProdutoSelectorTest</members>
 		<members>SeriePagamentoSelector</members>
-		<members>SeriePagamentoSelectorTest</members>
 		<members>SeriePagamentosService</members>
 		<members>SeriePagamentosServiceTest</members>
 		<members>SeriePagamentosTriggerHandler</members>
-		<members>SeriePagamentosTriggerHandlerTest</members>
 		<members>SimuladorTelaNegociacaoController</members>
 		<members>SimuladorTelaNegociacaoControllerTest</members>
 		<members>SimuladorVendasController</members>
 		<members>SimuladorVendasControllerTest</members>
 		<members>TabelaVendaHandler</members>
-		<members>TabelaVendaHandlerTest</members>
 		<members>TabelaVendaSelector</members>
-		<members>TabelaVendaSelectorTest</members>
 		<members>TabelaVendasService</members>
-		<members>TabelaVendasServiceTest</members>
 		<members>TestDataFactory</members>
 		<members>TriggerHandler</members>
 		<members>TriggerHandler_Test</members>
 		<members>UnidadeTabelaSelector</members>
-		<members>UnidadeTabelaSelectorTest</members>
 		<members>UnidadeTabelaService</members>
-		<members>UnidadeTabelaServiceTest</members>
 		<members>UnidadeTabelaTriggerHandler</members>
-		<members>UnidadeTabelaTriggerHandlerTest</members>
 		<members>comissaoController</members>
 		<members>comissaoControllerTest</members>
 		<name>ApexClass</name>
@@ -49,7 +41,6 @@
 	<types>
 		<members>SeriePagamentosTrigger</members>
 		<members>TabelaVendaTrigger</members>
-		<members>UnidadeTabelaVendasTrigger</members>
 		<name>ApexTrigger</name>
 	</types>
 	<types>
@@ -66,6 +57,20 @@
 		<members>Comissao__c.PorcentagemMaximaComissao__c</members>
 		<members>Comissao__c.SeriePagamentos__c</members>
 		<members>Comissao__c.ValorTotalComissaoPorcentagem__c</members>
+		<members>ConjuntoCriteriosAnalise__c.CaptacaoMensal__c</members>
+		<members>ConjuntoCriteriosAnalise__c.CaptacaoPosHabitaSe__c</members>
+		<members>ConjuntoCriteriosAnalise__c.CaptacaoVista__c</members>
+		<members>ConjuntoCriteriosAnalise__c.PrazoFinanciamento__c</members>
+		<members>ConjuntoCriteriosAnalise__c.ValorMetro__c</members>
+		<members>ConjuntoCriteriosAnalise__c.ValorNominal__c</members>
+		<members>ConjuntoCriteriosAnalise__c.ValorVPL__c</members>
+		<members>ConjuntoCriteriosAnalise__c.VariacaoLimiteCaptacaoMensal__c</members>
+		<members>ConjuntoCriteriosAnalise__c.VariacaoLimiteCaptacaoPos__c</members>
+		<members>ConjuntoCriteriosAnalise__c.VariacaoLimiteCaptacaoVista__c</members>
+		<members>ConjuntoCriteriosAnalise__c.VariacaoLimiteMetro__c</members>
+		<members>ConjuntoCriteriosAnalise__c.VariacaoLimitePrazoFinanciamento__c</members>
+		<members>ConjuntoCriteriosAnalise__c.VariacaoLimiteValorNominal__c</members>
+		<members>ConjuntoCriteriosAnalise__c.VariacaoLimiteValorVPL__c</members>
 		<members>DistribuicaoComissao__c.ComissaoSeparada__c</members>
 		<members>DistribuicaoComissao__c.Comissao__c</members>
 		<members>DistribuicaoComissao__c.Descricao__c</members>
@@ -101,6 +106,7 @@
 		<members>Empreendimento__c.TipoEmpreendimento__c</members>
 		<members>Empreendimento__c.UF__c</members>
 		<members>Empreendimento__c.ValorM__c</members>
+		<members>Opportunity.Corretor__c</members>
 		<members>Product2.AgenteFinanceiro__c</members>
 		<members>Product2.Andar__c</members>
 		<members>Product2.Bloco__c</members>
@@ -110,6 +116,7 @@
 		<members>Product2.CorReservado__c</members>
 		<members>Product2.CorVendida__c</members>
 		<members>Product2.Empreendimento__c</members>
+		<members>Product2.Enquadramento__c</members>
 		<members>Product2.FracaoIdeal__c</members>
 		<members>Product2.MensagemIntegracao__c</members>
 		<members>Product2.MetragemPrivativaCoberta__c</members>
@@ -121,6 +128,7 @@
 		<members>Product2.NumeroQuartos__c</members>
 		<members>Product2.PrecoLista__c</members>
 		<members>Product2.StatusIntegracao__c</members>
+		<members>Product2.Status__c</members>
 		<members>Product2.ValorBase__c</members>
 		<members>Product2.ValorM2__c</members>
 		<members>SeriePagamentos__c.AposHabiteSe__c</members>
@@ -168,8 +176,10 @@
 		<members>Bloco__c</members>
 		<members>Comissao__c</members>
 		<members>Configura_o_de__mdt</members>
+		<members>ConjuntoCriteriosAnalise__c</members>
 		<members>DistribuicaoComissao__c</members>
 		<members>Empreendimento__c</members>
+		<members>Product2</members>
 		<members>SeriePagamentos__c</members>
 		<members>TabelaVendas__c</members>
 		<members>UnidadeTabelaVendas__c</members>
@@ -179,6 +189,7 @@
 		<members>BlocoPaginaRegistro</members>
 		<members>Comiss_o_P_gina_de_registro</members>
 		<members>Empreendimento_P_gina_de_registro</members>
+		<members>FlexiConjuntoCriterioAnalise</members>
 		<members>PaginaTabelaVendas</members>
 		<members>Produto_P_gina_de_registro</members>
 		<name>FlexiPage</name>
@@ -189,6 +200,7 @@
 		<members>SituacoesUnidades</members>
 		<members>TiposCondicoes</members>
 		<members>TiposUnidades</members>
+		<members>VariacoesLimiteBloqueio</members>
 		<name>GlobalValueSet</name>
 	</types>
 	<types>
@@ -201,6 +213,7 @@
 		<members>espelhoDeVendasPipeline</members>
 		<members>espelhoVendasFiltrosExtras</members>
 		<members>lwcTooltip</members>
+		<members>paremetrizarCriteriosAnalise</members>
 		<members>simuladorDataTable</members>
 		<members>simuladorDeVendas</members>
 		<members>simuladorTelaExtrato</members>
@@ -230,8 +243,8 @@
 		<name>RecordType</name>
 	</types>
 	<types>
-		<members>Product2Family</members>
 		<members>LeadSource</members>
+		<members>Product2Family</members>
 		<name>StandardValueSet</name>
 	</types>
 	<version>60.0</version>

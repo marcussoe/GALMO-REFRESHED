@@ -682,15 +682,11 @@ export default class SimuladorDeVendas extends NavigationMixin(LightningElement)
                 ValorTotal__c: serie.ValorTotal__c,
                 AposHabiteSe__c: serie.AposHabiteSe__c,
                 TabelaVenda__c: null,
-                
+                DiaDeVencimento__c: serie.vencimentoParcela
             })
         })
 
-        console.log(JSON.stringify(this.produtoSelecionado))
-        console.log(JSON.stringify(this.produtoSelecionado.id))
-        console.log(JSON.stringify(this.produtoSelecionado.Id))
-        console.log(JSON.stringify(this.getProdutoSelecionadoId))
-
+        console.log(JSON.stringify(SeriesPagamento__c))
 
         criarTabelaDaSimulacao({seriesDeProposta: SeriesPagamento__c, idCotacao: this.getCotacaoId, nomeCotacao: this.getCotacaoName, tabelaSelecionada: this.tabelaVendaSelecionada, unidadeSelecionadaId: this.getProdutoSelecionadoId, nominalProposta: this.getValorNominalProposta})
         .then(result=>{

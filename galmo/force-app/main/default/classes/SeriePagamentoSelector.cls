@@ -41,7 +41,7 @@ public class SeriePagamentoSelector {
                 InicioPagamento__c,
                 QuantidadeParcelas__c,
                 ValorTotal__c,
-                AposHabiteSe__c 
+                AposHabiteSe__c
             FROM SeriePagamentos__c
             WHERE TabelaVenda__c = :tabelaPagamentoId
         ];
@@ -58,7 +58,8 @@ public class SeriePagamentoSelector {
                 TabelaVenda__c,
                 AposHabiteSe__c,
                 Restante__c,
-                TipoCondicao__c
+                TipoCondicao__c,
+                DiaDeVencimento__c	
             FROM SeriePagamentos__c
             WHERE TabelaVenda__c = :idTabelaVendas    
             ORDER BY InicioPagamento__c ASC

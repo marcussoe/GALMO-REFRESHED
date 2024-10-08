@@ -43,7 +43,6 @@ public class TestDataFactory {
         produto.ProductCode = 'Teste-1';
         produto.isActive = true;
         produto.NumeroDaUnidade__c = 777;
-        produto.Status__c = 'Disponivel';
         return produto;
     }
 
@@ -87,7 +86,7 @@ public class TestDataFactory {
         Opportunity oportunidade = new Opportunity();
         oportunidade.Name = 'Teste';
         oportunidade.AccountId = conta.Id;
-        //oportunidade.Corretor__c = corretor.Id;
+        oportunidade.Corretor__c = corretor.Id;
         oportunidade.StageName = 'Negociação';
         oportunidade.CloseDate = System.today().addDays(15);
         return oportunidade;
