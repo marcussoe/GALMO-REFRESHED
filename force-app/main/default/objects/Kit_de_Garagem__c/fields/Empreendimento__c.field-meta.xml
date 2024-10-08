@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Empreendimento__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Usado para definir e especificar qual empreendimento está relacionado a esse kit</description>
+    <inlineHelpText>Empreendimento relacionado a esse Kit de Garagem</inlineHelpText>
+    <label>Empreendimento</label>
+    <referenceTo>Enterprise__c</referenceTo>
+    <relationshipLabel>Kits de Garagem</relationshipLabel>
+    <relationshipName>Kits_de_Garagem</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

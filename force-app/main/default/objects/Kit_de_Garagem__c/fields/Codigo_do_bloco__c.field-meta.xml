@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Codigo_do_bloco__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <inlineHelpText>Código de Bloco relacionado a esse Kit de Garagem</inlineHelpText>
+    <label>Código do Bloco</label>
+    <referenceTo>Bloco__c</referenceTo>
+    <relationshipLabel>Kits de Garagem</relationshipLabel>
+    <relationshipName>Kits_de_Garagem</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
