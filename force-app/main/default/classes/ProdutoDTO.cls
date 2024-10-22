@@ -70,7 +70,7 @@ public class ProdutoDTO {
     public static Product2 toProduct(){
         Product2 prd = new Product2();
         prd.ExternalId = produto.idUnidade;
-        prd.Enterprise__c = produto.idEmpreendimento;
+        prd.Empreendimento__c = produto.idEmpreendimento;
         prd.Bloco__c = produto.idBloco;
         prd.Name = produto.nomeProduto;
         prd.NumeroUnidade__c = produto.numeroUnidade;
