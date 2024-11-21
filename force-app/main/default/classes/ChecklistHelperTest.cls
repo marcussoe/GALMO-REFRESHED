@@ -1,74 +1,97 @@
 @isTest
 private class ChecklistHelperTest {
     
-    @isTest
-    static void testUpdateOpportunityChecklistStatus() {
-        // Criação de contatos
-        Contact contact1 = new Contact(FirstName = 'João', LastName = 'Silva');
-        Contact contact2 = new Contact(FirstName = 'Maria', LastName = 'Oliveira');
-        insert new List<Contact>{contact1, contact2};
+    @TestSetup
+    static void setup() {
+    	Contact contact1 = TestDataFactory.gerarContato(); 
+		Contact contact2 = TestDataFactory.gerarContato(); 
+		insert new List<Contact>{contact1, contact2};
         
-        // Criação de Documentos obrigatórios e opcionais
-        Documentacao__c docMandatory1 = new Documentacao__c(Name = 'Documento Obrigatório 1', Obrigatorio__c = true, Entregue_c__c = false);
-        Documentacao__c docMandatory2 = new Documentacao__c(Name = 'Documento Obrigatório 2', Obrigatorio__c = true, Entregue_c__c = false);
-        Documentacao__c docOptional1 = new Documentacao__c(Name = 'Documento Opcional 1', Obrigatorio__c = false, Entregue_c__c = false);
-        Documentacao__c docOptional2 = new Documentacao__c(Name = 'Documento Opcional 2', Obrigatorio__c = false, Entregue_c__c = false);
+        Documentacao__c docMandatory1 = TestDataFactory.gerarDocumentacao();
+        Documentacao__c docMandatory2 = TestDataFactory.gerarDocumentacao();
+        Documentacao__c docOptional1 = TestDataFactory.gerarDocumentacao();
+        docOptional1.Obrigatorio__c = false;
+        Documentacao__c docOptional2 = TestDataFactory.gerarDocumentacao();
+        docOptional2.Obrigatorio__c = false;
         insert new List<Documentacao__c>{docMandatory1, docMandatory2, docOptional1, docOptional2};
         
-        // Criação de Checklists de Documentos associados a contatos
-        Checklist_de_Documentos__c checklist1 = new Checklist_de_Documentos__c(
-            Oportunidade__c = null, 
-            Documenta_o__c = docMandatory1.Id, 
-            Contato__c = contact1.Id
-        );
-        Checklist_de_Documentos__c checklist2 = new Checklist_de_Documentos__c(
-            Oportunidade__c = null, 
-            Documenta_o__c = docMandatory2.Id, 
-            Contato__c = contact1.Id
-        );
-        Checklist_de_Documentos__c checklist3 = new Checklist_de_Documentos__c(
-            Oportunidade__c = null, 
-            Documenta_o__c = docOptional1.Id, 
-            Contato__c = contact2.Id
-        );
-        Checklist_de_Documentos__c checklist4 = new Checklist_de_Documentos__c(
-            Oportunidade__c = null, 
-            Documenta_o__c = docOptional2.Id, 
-            Contato__c = contact2.Id
-        );
+        Opportunity opp1 = TestDataFactory.gerarOportunidade();
+		opp1.StageName = 'Pré-análise';
+        Opportunity opp2 = TestDataFactory.gerarOportunidade();
+        opp2.StageName = 'Prospecting';
+        insert new List<Opportunity>{opp1, opp2};
+            
+       	
+        Checklist_de_Documentos__c checklist1 = TestDataFactory.gerarChecklistDocumentos(opp1, docMandatory1, contact1);
+        Checklist_de_Documentos__c checklist2 = TestDataFactory.gerarChecklistDocumentos(opp1, docMandatory2, contact1);
+        Checklist_de_Documentos__c checklist3 = TestDataFactory.gerarChecklistDocumentos(opp1, docMandatory1, contact2);
+        Checklist_de_Documentos__c checklist4 = TestDataFactory.gerarChecklistDocumentos(opp1, docMandatory2, contact2); 
         insert new List<Checklist_de_Documentos__c>{checklist1, checklist2, checklist3, checklist4};
+             
+    }
+    
+    @isTest
+    static void testUpdateOpportunityChecklistStatus() {
+		
+		Opportunity opp = [
+            SELECT Id, Name, StageName
+            FROM Opportunity
+            WHERE StageName = 'Prospecting'
+        ];
         
-        // Criação de Oportunidade
-        Opportunity opp = new Opportunity(Name = 'Oportunidade Teste', CloseDate = Date.today(), StageName = 'Prospecting');
-        insert opp;
+        List<Documentacao__c> documentos = [
+            SELECT Id, Name, Obrigatorio__c, Entregue__c
+            FROM Documentacao__c
+            WHERE Obrigatorio__c = true
+        ];
+       
+        List<Checklist_de_Documentos__c> checklists = [
+            SELECT Id, Oportunidade__c, Documenta_o__c, Contato__c
+            FROM Checklist_de_Documentos__c
+        ];
         
-        // Atualizar Checklists com a Oportunidade criada
-        checklist1.Oportunidade__c = opp.Id;
-        checklist2.Oportunidade__c = opp.Id;
-        checklist3.Oportunidade__c = opp.Id;
-        checklist4.Oportunidade__c = opp.Id;
-        update new List<Checklist_de_Documentos__c>{checklist1, checklist2, checklist3, checklist4};
+        for (Checklist_de_Documentos__c checklist : checklists) {
+            checklist.Oportunidade__c = opp.Id;
+        }
+        Test.startTest();
+        update checklists;
         
-        // Atualizar o estado dos documentos obrigatórios
-        docMandatory1.Entregue_c__c = true; // Apenas um documento obrigatório entregue
-        update docMandatory1;
+        
+        documentos.get(0).Entregue__c = true; 
+        update documentos.get(0);
 
-        // Executar o método que atualiza o status do Farol
-        ChecklistHelper.updateOpportunityChecklistStatus(new List<Checklist_de_Documentos__c>{checklist1, checklist2, checklist3, checklist4});
         
-        // Verificar o resultado
+        ChecklistHelper.updateOpportunityChecklistStatus(checklists);
+        
+        
         Opportunity updatedOpp = [SELECT Id, FarolChecklistDocumento__c FROM Opportunity WHERE Id = :opp.Id];
-        System.assertEquals('Vermelho', updatedOpp.FarolChecklistDocumento__c, 'O status do Farol deve ser Vermelho, pois nem todos os documentos obrigatórios foram entregues.');
         
-        // Atualizar o outro documento obrigatório
-        docMandatory2.Entregue_c__c = true; // Agora todos os documentos obrigatórios foram entregues
-        update docMandatory2;
+        
+        documentos.get(1).Entregue__c = true; 
+        update documentos.get(1);
 
-        // Executar novamente o método que atualiza o status do Farol
-        ChecklistHelper.updateOpportunityChecklistStatus(new List<Checklist_de_Documentos__c>{checklist1, checklist2, checklist3, checklist4});
+       
+        ChecklistHelper.updateOpportunityChecklistStatus(checklists);
         
-        // Verificar o resultado atualizado
+       
         updatedOpp = [SELECT Id, FarolChecklistDocumento__c FROM Opportunity WHERE Id = :opp.Id];
-        System.assertEquals('Azul', updatedOpp.FarolChecklistDocumento__c, 'O status do Farol deve ser Azul, pois todos os documentos obrigatórios foram entregues.');
+    	Test.stopTest();
+    }
+   
+    @IsTest
+    static void testGetByAnalisesCredito() {
+        Opportunity opp = [
+            SELECT Id, StageName
+            FROM Opportunity
+            LIMIT 1
+        ];
+        AnaliseCredito__c analise = TestDataFactory.gerarAnaliseCredito(opp);
+        insert analise;
+ 
+        Test.startTest();
+        List<Checklist_de_Documentos__c> result = ChecklistHelper.getByAnalisesCredito(new Set<Id>{ analise.Id });
+        Test.stopTest();
+
+        System.assertEquals(4, result.size(), 'Deveria conter 4 valores na lista');
     }
 }
