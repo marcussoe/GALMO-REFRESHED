@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <actionCalls>
+        <name>Buscar_Corretores_por_Apelido_Foneticamente</name>
+        <label>Buscar Corretores por Apelido Foneticamente</label>
+        <locationX>998</locationX>
+        <locationY>1106</locationY>
+        <actionName>BuscaFoneticaFlowCorretores</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>ValidacaoApelido</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>palavra</name>
+            <value>
+                <elementReference>ApelidoDoCorretor</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>BuscaFoneticaFlowCorretores</nameSegment>
+        <offset>0</offset>
+        <outputParameters>
+            <assignToReference>existeApelidoFonetico</assignToReference>
+            <name>encontrou</name>
+        </outputParameters>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>BuscarEndereco</name>
         <label>Buscar Endereço</label>
-        <locationX>1469</locationX>
-        <locationY>1754</locationY>
+        <locationX>1733</locationX>
+        <locationY>2336</locationY>
         <actionName>EnderecoService</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -18,6 +43,7 @@
             </value>
         </inputParameters>
         <nameSegment>EnderecoService</nameSegment>
+        <offset>0</offset>
         <outputParameters>
             <assignToReference>BairroApi</assignToReference>
             <name>bairro</name>
@@ -51,8 +77,8 @@
     <actionCalls>
         <name>teste</name>
         <label>teste</label>
-        <locationX>2426</locationX>
-        <locationY>2834</locationY>
+        <locationX>2690</locationX>
+        <locationY>3416</locationY>
         <actionName>c:navigateToRecord</actionName>
         <actionType>component</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -63,13 +89,14 @@
             </value>
         </inputParameters>
         <nameSegment>c:navigateToRecord</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>ValidacaoCpfAPex</name>
         <label>Validação do CPF pelo Apex</label>
-        <locationX>590</locationX>
+        <locationX>656</locationX>
         <locationY>566</locationY>
         <actionName>ValidarCPF</actionName>
         <actionType>apex</actionType>
@@ -84,6 +111,7 @@
             </value>
         </inputParameters>
         <nameSegment>ValidarCPF</nameSegment>
+        <offset>0</offset>
         <outputParameters>
             <assignToReference>resultadoCpf</assignToReference>
             <name>output</name>
@@ -94,8 +122,8 @@
     <assignments>
         <name>Atribui_o_7</name>
         <label>Atribuição 7</label>
-        <locationX>1370</locationX>
-        <locationY>2510</locationY>
+        <locationX>1634</locationX>
+        <locationY>3092</locationY>
         <assignmentItems>
             <assignToReference>exibirErroCelular</assignToReference>
             <operator>Assign</operator>
@@ -111,7 +139,7 @@
     <assignments>
         <name>AtribuicaoApelido</name>
         <label>Atribuição do Apelido</label>
-        <locationX>866</locationX>
+        <locationX>998</locationX>
         <locationY>890</locationY>
         <assignmentItems>
             <assignToReference>ApelidoDoCorretor</assignToReference>
@@ -127,7 +155,7 @@
     <assignments>
         <name>AtribuicaoCpf</name>
         <label>Atribuição do CPF</label>
-        <locationX>320</locationX>
+        <locationX>353</locationX>
         <locationY>242</locationY>
         <assignmentItems>
             <assignToReference>CpfDoCorretor</assignToReference>
@@ -155,10 +183,43 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Atribuir_erro_creci</name>
+        <label>Atribuir erro creci</label>
+        <locationX>1375</locationX>
+        <locationY>1646</locationY>
+        <assignmentItems>
+            <assignToReference>erroCreci</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>DadosCorretor</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>C_pia_2_de_Atribuir_erro_creci</name>
+        <label>Cópia 2 de Atribuir erro creci</label>
+        <locationX>1419</locationX>
+        <locationY>1430</locationY>
+        <assignmentItems>
+            <assignToReference>erroCreci</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Verificar_CRECI_Definitivo</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>exibir_erro</name>
         <label>exibir erro</label>
-        <locationX>2162</locationX>
-        <locationY>2726</locationY>
+        <locationX>2426</locationX>
+        <locationY>3308</locationY>
         <assignmentItems>
             <assignToReference>exibirErroEmail</assignToReference>
             <operator>Assign</operator>
@@ -174,8 +235,8 @@
     <assignments>
         <name>Exibir_erro_celular_adicional</name>
         <label>Exibir erro celular adicional</label>
-        <locationX>1898</locationX>
-        <locationY>2510</locationY>
+        <locationX>2162</locationX>
+        <locationY>3092</locationY>
         <assignmentItems>
             <assignToReference>exibirErroCelular</assignToReference>
             <operator>Assign</operator>
@@ -191,8 +252,8 @@
     <assignments>
         <name>exibir_erro_data_vencimento</name>
         <label>exibir erro data vencimento</label>
-        <locationX>842</locationX>
-        <locationY>1538</locationY>
+        <locationX>1106</locationX>
+        <locationY>2120</locationY>
         <assignmentItems>
             <assignToReference>exibirErroDataVencimento</assignToReference>
             <operator>Assign</operator>
@@ -208,8 +269,8 @@
     <assignments>
         <name>Exibir_erro_telefone</name>
         <label>Exibir erro telefone</label>
-        <locationX>1634</locationX>
-        <locationY>2510</locationY>
+        <locationX>1898</locationX>
+        <locationY>3092</locationY>
         <assignmentItems>
             <assignToReference>exibirErroTelefone</assignToReference>
             <operator>Assign</operator>
@@ -225,8 +286,8 @@
     <assignments>
         <name>exibirErro</name>
         <label>exibirErro</label>
-        <locationX>1106</locationX>
-        <locationY>2078</locationY>
+        <locationX>1370</locationX>
+        <locationY>2660</locationY>
         <assignmentItems>
             <assignToReference>exibirErroCep</assignToReference>
             <operator>Assign</operator>
@@ -276,8 +337,8 @@
     <assignments>
         <name>tirar_erro</name>
         <label>tirar erro</label>
-        <locationX>1832</locationX>
-        <locationY>2294</locationY>
+        <locationX>2096</locationX>
+        <locationY>2876</locationY>
         <assignmentItems>
             <assignToReference>exibirErroCelular</assignToReference>
             <operator>Assign</operator>
@@ -306,8 +367,8 @@
     <assignments>
         <name>tirar_erro_data</name>
         <label>tirar erro data vencimento</label>
-        <locationX>1155</locationX>
-        <locationY>1322</locationY>
+        <locationX>1419</locationX>
+        <locationY>1904</locationY>
         <assignmentItems>
             <assignToReference>exibirErroDataVencimento</assignToReference>
             <operator>Assign</operator>
@@ -329,8 +390,8 @@
     <assignments>
         <name>tirarErroCep</name>
         <label>tirarErroCep</label>
-        <locationX>1469</locationX>
-        <locationY>1862</locationY>
+        <locationX>1733</locationX>
+        <locationY>2444</locationY>
         <assignmentItems>
             <assignToReference>exibirErroCep</assignToReference>
             <operator>Assign</operator>
@@ -365,7 +426,7 @@
     <decisions>
         <name>CpfValido</name>
         <label>CPF é válido?</label>
-        <locationX>590</locationX>
+        <locationX>656</locationX>
         <locationY>674</locationY>
         <defaultConnector>
             <targetReference>CadastrarApelido</targetReference>
@@ -390,8 +451,8 @@
     <decisions>
         <name>Valida_o_da_data_vencimento</name>
         <label>Validação da data vencimento</label>
-        <locationX>1155</locationX>
-        <locationY>1430</locationY>
+        <locationX>1419</locationX>
+        <locationY>2012</locationY>
         <defaultConnector>
             <targetReference>DadosPessoaisBancarios</targetReference>
         </defaultConnector>
@@ -422,8 +483,8 @@
     <decisions>
         <name>valida_o_de_cep</name>
         <label>validação de cep</label>
-        <locationX>1469</locationX>
-        <locationY>1970</locationY>
+        <locationX>1733</locationX>
+        <locationY>2552</locationY>
         <defaultConnector>
             <targetReference>DadosResidenciaisProfissionaisContato</targetReference>
         </defaultConnector>
@@ -454,8 +515,8 @@
     <decisions>
         <name>Valida_o_de_email_duplicado</name>
         <label>Validação de email duplicado</label>
-        <locationX>2294</locationX>
-        <locationY>2618</locationY>
+        <locationX>2558</locationX>
+        <locationY>3200</locationY>
         <defaultConnector>
             <targetReference>Registrar_Campos_do_Corretor</targetReference>
         </defaultConnector>
@@ -479,8 +540,8 @@
     <decisions>
         <name>Validacao_Celular</name>
         <label>Validação Celular</label>
-        <locationX>1832</locationX>
-        <locationY>2402</locationY>
+        <locationX>2096</locationX>
+        <locationY>2984</locationY>
         <defaultConnector>
             <targetReference>buscarEmail</targetReference>
         </defaultConnector>
@@ -548,8 +609,8 @@
     <decisions>
         <name>ValidacaoApelido</name>
         <label>Validação Apelido</label>
-        <locationX>866</locationX>
-        <locationY>1106</locationY>
+        <locationX>998</locationX>
+        <locationY>1214</locationY>
         <defaultConnector>
             <targetReference>DadosCorretor</targetReference>
         </defaultConnector>
@@ -570,11 +631,27 @@
             </connector>
             <label>Apelido existente no sistema</label>
         </rules>
+        <rules>
+            <name>Existe_Apelido_fonetico</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>existeApelidoFonetico</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>CadastrarApelido</targetReference>
+            </connector>
+            <label>Existe Apelido fonetico</label>
+        </rules>
     </decisions>
     <decisions>
         <name>ValidacaoCpf</name>
         <label>ValidacaoCpf</label>
-        <locationX>320</locationX>
+        <locationX>353</locationX>
         <locationY>458</locationY>
         <defaultConnector>
             <targetReference>ValidacaoCpfAPex</targetReference>
@@ -596,7 +673,61 @@
             <label>CPF existe no sistema</label>
         </rules>
     </decisions>
-    <description>Pós Deploy inserção do ID do Tipo de Registro para Corretor</description>
+    <decisions>
+        <name>Verificar_CRECI_Definitivo</name>
+        <label>Verificar CRECI Definitivo</label>
+        <locationX>1419</locationX>
+        <locationY>1538</locationY>
+        <defaultConnector>
+            <targetReference>tirar_erro_data</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Não Definitivo</defaultConnectorLabel>
+        <rules>
+            <name>Preenchido</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>TipoCRECI</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Definitivo</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>CRECI</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>tirar_erro_data</targetReference>
+            </connector>
+            <label>Preenchido</label>
+        </rules>
+        <rules>
+            <name>N_o_Preenchido</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>TipoCRECI</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Definitivo</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>CRECI</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Atribuir_erro_creci</targetReference>
+            </connector>
+            <label>Não Preenchido</label>
+        </rules>
+    </decisions>
+    <description>Versão com o via cep, pesquisa fonetica e com o campo reporta-se à</description>
     <dynamicChoiceSets>
         <name>HorarioContato</name>
         <dataType>Picklist</dataType>
@@ -765,8 +896,8 @@ ISBLANK({!DataInscricaoCreci})),
     <recordCreates>
         <name>Registrar_Campos_do_Corretor</name>
         <label>Registrar corretor</label>
-        <locationX>2426</locationX>
-        <locationY>2726</locationY>
+        <locationX>2690</locationX>
+        <locationY>3308</locationY>
         <connector>
             <targetReference>teste</targetReference>
         </connector>
@@ -1065,6 +1196,12 @@ ISBLANK({!DataInscricaoCreci})),
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Reporta_se_A__c</field>
+            <value>
+                <elementReference>pesquisaReportaseA.recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>StatusCorretor__c</field>
             <value>
                 <elementReference>StatusCorretor</elementReference>
@@ -1100,8 +1237,8 @@ ISBLANK({!DataInscricaoCreci})),
     <recordLookups>
         <name>buscarEmail</name>
         <label>buscarEmail</label>
-        <locationX>2294</locationX>
-        <locationY>2510</locationY>
+        <locationX>2558</locationX>
+        <locationY>3092</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Valida_o_de_email_duplicado</targetReference>
@@ -1137,11 +1274,11 @@ ISBLANK({!DataInscricaoCreci})),
     <recordLookups>
         <name>getApelido</name>
         <label>getApelido</label>
-        <locationX>866</locationX>
+        <locationX>998</locationX>
         <locationY>998</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>ValidacaoApelido</targetReference>
+            <targetReference>Buscar_Corretores_por_Apelido_Foneticamente</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1166,7 +1303,7 @@ ISBLANK({!DataInscricaoCreci})),
     <recordLookups>
         <name>getCpfCorretor</name>
         <label>getCpfCorretor</label>
-        <locationX>320</locationX>
+        <locationX>353</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1195,7 +1332,7 @@ ISBLANK({!DataInscricaoCreci})),
     <screens>
         <name>CadastrarApelido</name>
         <label>Step 2 - Cadastrar Apelido</label>
-        <locationX>866</locationX>
+        <locationX>998</locationX>
         <locationY>782</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -1223,6 +1360,24 @@ ISBLANK({!DataInscricaoCreci})),
             </visibilityRule>
         </fields>
         <fields>
+            <name>ToastErrorApelidoFonetico</name>
+            <extensionName>c:toastErrorApelidoFonetico</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Existe_Apelido_fonetico</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
             <name>txtApelido</name>
             <fieldText>&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQmko4NTNed4K5pSNsj49NdrSuNTqXNgrbeK413z3rJqExrSU-H&amp;amp;operationContext=CHATTER&quot; 
         alt=&quot;contato.PNG&quot; style=&quot;width: 50px; height: 45px;&quot;&gt;Cadastro do Corretor&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;CPF liberado para cadastro. Agora, Pesquise pelo o Apelido.&lt;/p&gt;</fieldText>
@@ -1243,7 +1398,7 @@ ISBLANK({!DataInscricaoCreci})),
     <screens>
         <name>CadastrarCpf</name>
         <label>Step 1 - Cadastrar CPF</label>
-        <locationX>320</locationX>
+        <locationX>353</locationX>
         <locationY>134</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1313,13 +1468,13 @@ ISBLANK({!DataInscricaoCreci})),
     <screens>
         <name>DadosCorretor</name>
         <label>Step 3 - Dados do Corretor</label>
-        <locationX>1155</locationX>
-        <locationY>1214</locationY>
+        <locationX>1419</locationX>
+        <locationY>1322</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>tirar_erro_data</targetReference>
+            <targetReference>C_pia_2_de_Atribuir_erro_creci</targetReference>
         </connector>
         <fields>
             <name>erroDataVencimento</name>
@@ -1340,6 +1495,24 @@ ISBLANK({!DataInscricaoCreci})),
             </visibilityRule>
         </fields>
         <fields>
+            <name>toastCRECI</name>
+            <extensionName>c:toastWarningCreciDefinitivo</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>erroCreci</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
             <name>txtCorretor</name>
             <fieldText>&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQmko4NTNed4K5pSNsj49NdrSuNTqXNgrbeK413z3rJqExrSU-H&amp;amp;operationContext=CHATTER&quot; 
         alt=&quot;contato.PNG&quot; style=&quot;width: 50px; height: 45px;&quot;&gt;Cadastro do Corretor&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Insira os Dados do Corretor.&lt;/p&gt;</fieldText>
@@ -1349,6 +1522,56 @@ ISBLANK({!DataInscricaoCreci})),
             <name>Apelido</name>
             <fieldText>&lt;p&gt;Apelido&lt;/p&gt;&lt;p&gt;&lt;strong&gt;{!ApelidoCorretor}&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>pesquisaReportaseA</name>
+            <extensionName>flowruntime:lookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fieldApiName</name>
+                <value>
+                    <stringValue>Reporta_se_A__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>objectApiName</name>
+                <value>
+                    <stringValue>Contact</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>reporta-se à:</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>disabled</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>repostaseA</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>maxValues</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
             <name>DadosCorretor_Section1</name>
@@ -1580,8 +1803,8 @@ ISBLANK({!DataInscricaoCreci})),
     <screens>
         <name>DadosPessoaisBancarios</name>
         <label>Step 4 - Dados pessoais e bancários</label>
-        <locationX>1469</locationX>
-        <locationY>1538</locationY>
+        <locationX>1733</locationX>
+        <locationY>2120</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1921,8 +2144,8 @@ ISBLANK({!DataInscricaoCreci})),
     <screens>
         <name>DadosResidenciaisProfissionaisContato</name>
         <label>Step 5 - Dados residenciais, profissionais e contato</label>
-        <locationX>1832</locationX>
-        <locationY>2078</locationY>
+        <locationX>2096</locationX>
+        <locationY>2660</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2191,8 +2414,8 @@ ISBLANK({!DataInscricaoCreci})),
     <screens>
         <name>Step_6</name>
         <label>Step 6 - Dados de Contato</label>
-        <locationX>1832</locationX>
-        <locationY>2186</locationY>
+        <locationX>2096</locationX>
+        <locationY>2768</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2455,8 +2678,8 @@ ISBLANK({!DataInscricaoCreci})),
     <screens>
         <name>Via_Cep</name>
         <label>Via Cep</label>
-        <locationX>1469</locationX>
-        <locationY>1646</locationY>
+        <locationX>1733</locationX>
+        <locationY>2228</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2504,7 +2727,7 @@ ISBLANK({!DataInscricaoCreci})),
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>194</locationX>
+        <locationX>227</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>CadastrarCpf</targetReference>
@@ -2592,6 +2815,13 @@ ISBLANK({!DataInscricaoCreci})),
         <isOutput>true</isOutput>
     </variables>
     <variables>
+        <name>erroCreci</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>exibirAviso</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
@@ -2672,13 +2902,23 @@ ISBLANK({!DataInscricaoCreci})),
         </value>
     </variables>
     <variables>
+        <name>existeApelidoFonetico</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
         <name>IdTipoRegistro</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
         <value>
-            <stringValue>012Ha000000PhxsIAC</stringValue>
+            <stringValue>01289000000ZcX4AAK</stringValue>
         </value>
     </variables>
     <variables>
@@ -2704,6 +2944,13 @@ ISBLANK({!DataInscricaoCreci})),
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>repostaseA</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>resultadoCpf</name>
