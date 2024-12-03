@@ -727,7 +727,7 @@
             <label>Não Preenchido</label>
         </rules>
     </decisions>
-    <description>Versão com o via cep, pesquisa fonetica e com o campo reporta-se à</description>
+    <description>Versão com a pesquisa fonetica e o campo reporta-se a</description>
     <dynamicChoiceSets>
         <name>HorarioContato</name>
         <dataType>Picklist</dataType>
@@ -2733,7 +2733,7 @@ ISBLANK({!DataInscricaoCreci})),
             <targetReference>CadastrarCpf</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>AccountId</name>
         <dataType>String</dataType>
@@ -2918,7 +2918,7 @@ ISBLANK({!DataInscricaoCreci})),
         <isInput>true</isInput>
         <isOutput>true</isOutput>
         <value>
-            <stringValue>01289000000ZcX4AAK</stringValue>
+            <stringValue>012Ha000000PhxsIAC</stringValue>
         </value>
     </variables>
     <variables>
